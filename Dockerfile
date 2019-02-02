@@ -16,7 +16,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -v -o hello
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
 # Use Google managed base image
 # https://cloud.google.com/container-registry/docs/managed-base-images
-FROM launcher.gcr.io/google/ubuntu18_04
+FROM marketplace.gcr.io/google/ubuntu1804:latest
 
 # Copy the binary to the production image from the builder stage.
 COPY --from=builder /go/src/cloudrun/hello/hello /hello
