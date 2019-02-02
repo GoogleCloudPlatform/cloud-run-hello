@@ -9,11 +9,11 @@ import (
 
 func handler(w http.ResponseWriter, r *http.Request) {
         log.Print("Your Cloud Run service has received a request.")
-        fmt.Fprintf(w, "Hello Cloud Run")
+        fmt.Fprintf(w, "Hello from Cloud Run")
 }
 
 func main() {
-        log.Print("Hello from your Cloud Run container.")
+        log.Print("Hello from Cloud Run")
 
         http.HandleFunc("/", handler)
 
