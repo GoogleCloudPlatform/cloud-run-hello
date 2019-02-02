@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Congratulations | Cloud Run</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+  }
+  .logo {
+    width: 200px;
+    float: left;
+    margin-right: 32px;
+  }
+  .container {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+  }
+  h1 {
+    margin-top: 50px;
+  }
+  .hero {
+    margin-bottom: 100px;
+  }
+  .details {
+    clear: both;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-3{fill:#fff}</style></defs><path d="M505.9 232.48l-105.22-183C392.24 34.91 377 26 361.22 26H150.79c-16.86 0-31.59 9.88-39.46 23.5L6.11 232.1a45.9 45.9 0 0 0 0 45.75l105.22 183.8C119.75 476.26 135 486 150.78 486h210.43c16.86 0 31.59-10.63 39.46-24.24l105.22-183a46.94 46.94 0 0 0 .01-46.28z" fill="#4285f4" id="BASE"/><path d="M390.38 256l-147.66-87 11.62 54.82L199 168.48 209.84 252l-47 115.86L281 486h80.24c16.86 0 31.59-10.63 39.46-24.24L472 337.65z" opacity=".07" id="shadow"/><g id="art"><path class="cls-3" d="M226.16 256l-27.13-87.52-36.18-24.36L197.52 256l-34.67 111.88 36.18-24.36L226.16 256z"/><path class="cls-3" d="M224.2 144.12L258.88 256 224.2 367.88 390.38 256zM270.67 240l-17.75-57.26L338 240z"/></g></svg>
+
+  <h1>It's alive!</h1>
+  <p>Congratulations, you successfully deployed a container image to Cloud Run.</p>
+  <p>This created the revision {{.Revision}} in the Cloud Run service {{.Service}}.</p>
+</div>
+
+<div class="details">
+  <p>The code inside this container is listening for HTTP requests on the port defined by the <code>PORT</code> environment variable and is not able to execute when it is not processing a request.
+  <br/>
+  You can deploy to Cloud Run any container that respects these constraints, it will automatically run and scale without you having to worry about anything.
+  </p>
+
+  <h3>What's next?</h3>
+  <p><a href="https://cloud.google.com/run/docs/quickstarts/build-and-deploy" target="_blank">Build and deploy your own container</a></p>
+</div>
+
+</div>
+</body>
+</html>

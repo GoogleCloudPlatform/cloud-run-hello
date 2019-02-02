@@ -21,5 +21,8 @@ FROM marketplace.gcr.io/google/ubuntu1804:latest
 # Copy the binary to the production image from the builder stage.
 COPY --from=builder /go/src/cloudrun/hello/hello /hello
 
+# Copy template
+COPY index.html /index.html
+
 # Run the web service on container startup.
 CMD ["/hello"]

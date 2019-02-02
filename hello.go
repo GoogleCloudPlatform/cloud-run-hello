@@ -4,18 +4,27 @@ import (
         "fmt"
         "log"
         "net/http"
+        "html/template"
         "os"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-        log.Print("Your Cloud Run service has received a request.")
-        fmt.Fprintf(w, "Hello from Cloud Run")
+type Data struct {
+	Service string
+	Revision string
 }
 
 func main() {
-        log.Print("Hello from Cloud Run")
+        tmpl := template.Must(template.ParseFiles("index.html"))
 
-        http.HandleFunc("/", handler)
+		data := Data{
+			Service: os.Getenv("K_SERVICE"),
+			Revision: os.Getenv("K_REVISION"),
+		}
+
+        http.HandleFunc("/", func (w http.ResponseWriter, r *http.Request) {
+            log.Print("Your Cloud Run service has received a request.")
+            tmpl.Execute(w, data)
+        })
 
         port := os.Getenv("PORT")
         if port == "" {
@@ -23,4 +32,5 @@ func main() {
         }
 
         log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
+        log.Print("Hello from Cloud Run. A new container instance was started.")
 }
