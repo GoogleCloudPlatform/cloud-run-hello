@@ -22,7 +22,6 @@ func main() {
 		}
 
         http.HandleFunc("/", func (w http.ResponseWriter, r *http.Request) {
-            log.Print("Your Cloud Run service has received a request.")
             tmpl.Execute(w, data)
         })
 
@@ -32,5 +31,5 @@ func main() {
         }
 
         log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
-        log.Print("Hello from Cloud Run. A new container instance was started.")
+        log.Print("Hello from Cloud Run!")
 }
