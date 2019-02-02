@@ -14,7 +14,9 @@ RUN CGO_ENABLED=0 GOOS=linux go build -v -o hello
 
 # Use a Docker multi-stage build to create a lean production image.
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
-FROM alpine
+# Use Google managed base image
+# https://cloud.google.com/container-registry/docs/managed-base-images
+FROM launcher.gcr.io/google/ubuntu18_04
 
 # Copy the binary to the production image from the builder stage.
 COPY --from=builder /go/src/cloudrun/hello/hello /hello
