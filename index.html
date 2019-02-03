@@ -14,22 +14,21 @@
   body {
     font-family: 'Roboto', sans-serif;
   }
-  .logo {
-    width: 140px;
-    float: left;
-    margin-right: 32px;
-  }
   .container {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 100px;
-  }
-  h1 {
-    margin-top: 50px;
   }
   .hero {
-    margin-bottom: 50px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
+  .hero .logo {
+    width: 140px;
+    float: left;
+    margin-right: 32px;
+  }
+  .hero .message {
   }
   .details {
     clear: both;
@@ -51,6 +50,21 @@
   .cta a:hover {
     background-color: rgb(66, 133, 244, 0.9);
   }
+  @media (max-width: 600px) {
+    .hero .logo {
+      float: initial;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .container {
+      margin-top: 0;
+    }
+    .hero {
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -59,9 +73,11 @@
 <div class="hero">
   <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><style>.cls-3{fill:#fff}</style></defs><path d="M505.9 232.48l-105.22-183C392.24 34.91 377 26 361.22 26H150.79c-16.86 0-31.59 9.88-39.46 23.5L6.11 232.1a45.9 45.9 0 0 0 0 45.75l105.22 183.8C119.75 476.26 135 486 150.78 486h210.43c16.86 0 31.59-10.63 39.46-24.24l105.22-183a46.94 46.94 0 0 0 .01-46.28z" fill="#4285f4" id="BASE"/><path d="M390.38 256l-147.66-87 11.62 54.82L199 168.48 209.84 252l-47 115.86L281 486h80.24c16.86 0 31.59-10.63 39.46-24.24L472 337.65z" opacity=".07" id="shadow"/><g id="art"><path class="cls-3" d="M226.16 256l-27.13-87.52-36.18-24.36L197.52 256l-34.67 111.88 36.18-24.36L226.16 256z"/><path class="cls-3" d="M224.2 144.12L258.88 256 224.2 367.88 390.38 256zM270.67 240l-17.75-57.26L338 240z"/></g></svg>
 
+  <div class="message">
   <h1>It's alive!</h1>
   <p>Congratulations, you successfully deployed a container image to Cloud Run.</p>
-  <p>This created the revision "{{.Revision}}" of the Cloud Run service "{{.Service}}" in the GCP project "{{.Project}}".</p>
+  <p>This created the revision "<i>{{.Revision}}</i>" of the Cloud Run service "<i>{{.Service}}</i>" in the GCP project "<i>{{.Project}}</i>".</p>
+  </div>
 </div>
 
 <div class="details">
@@ -71,7 +87,7 @@
   </p>
 
   <h3>What's next?</h3>
-  <p>Follow the following tutorial to build a "Hello World" application in your favorite language into a container image, and then deploy it to Cloud Run:</p>
+  <p>Follow a tutorial to build a "Hello World" application in your favorite language into a container image, and then deploy it to Cloud Run:</p>
   <p class="cta"><a href="https://cloud.google.com/run/docs/quickstarts/build-and-deploy" target="_blank">Build and deploy Quickstart</a></p>
 </div>
 
