@@ -2,6 +2,7 @@
 <html lang=en>
 <head>
 <meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Congratulations | Cloud Run</title>
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <link
@@ -14,7 +15,7 @@
     font-family: 'Roboto', sans-serif;
   }
   .logo {
-    width: 200px;
+    width: 140px;
     float: left;
     margin-right: 32px;
   }
@@ -28,10 +29,27 @@
     margin-top: 50px;
   }
   .hero {
-    margin-bottom: 100px;
+    margin-bottom: 50px;
   }
   .details {
     clear: both;
+  }
+  .cta {
+    text-align: center;
+    margin: 32px;
+  }
+  .cta a {
+    color: white;
+    text-decoration: none;
+    background-color: rgb(66, 133, 244);
+    padding: 18px 24px;
+    margin: 12px;
+    min-height: 36px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .cta a:hover {
+    background-color: rgb(66, 133, 244, 0.9);
   }
 </style>
 </head>
@@ -53,7 +71,8 @@
   </p>
 
   <h3>What's next?</h3>
-  <p><a href="https://cloud.google.com/run/docs/quickstarts/build-and-deploy" target="_blank">Build and deploy your own container</a></p>
+  <p>Follow the following tutorial to build a "Hello World" application in your favorite language into a container image, and then deploy it to Cloud Run:</p>
+  <p class="cta"><a href="https://cloud.google.com/run/docs/quickstarts/build-and-deploy" target="_blank">Build and deploy Quickstart</a></p>
 </div>
 
 </div>
