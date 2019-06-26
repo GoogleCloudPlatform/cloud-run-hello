@@ -1,7 +1,8 @@
-# "Hello Cloud Run" container for quickstart
+# Cloud Run Quickstart
 
-This repository contains the source code of the container image used for the Cloud Run quickstart and as a demo container in the Cloud Run UI.
+This repository contains the source code of a sample Go application that is
+distributed as the public container image (`gcr.io/cloudrun/hello`) used in the
+[Cloud Run quickstart](https://cloud.google.com/run/docs/quickstarts/) and as
+the suggested container image  in the Cloud Run UI on Cloud Console.
 
-A [Cloud Build trigger](https://pantheon.corp.google.com/cloud-build/triggers/93a2106a-cab6-4056-ad15-021dc5f6c1f0?project=cloudrun
-has been set up to automatically build this code into the `gcr.io/cloudrun/hello:latest` image anytime the master branch of this repository is updated.
-
+[![Run on Google Cloud](https://storage.googleapis.com/cloudrun/button.svg)](https://console.cloud.google.com/cloudshell/editor?shellonly=true&cloudshell_image=gcr.io/cloudrun/button&cloudshell_git_repo=https://github.com/GoogleCloudPlatform/cloud-run-hello.git)
