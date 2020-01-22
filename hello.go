@@ -86,6 +86,17 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		tmpl.Execute(w, data)
+		log.Printf("%s request from %s for %s", r.Method, r.Host, r.URL)
+	})
+
+	http.HandleFunc("/cloud_bg.svg", func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("%s request for %s from %s.", r.Method, r.RequestURI, r.RemoteAddr)
+		http.ServeFile(w, r, "cloud_bg.svg")
+	})
+
+	http.HandleFunc("/lightbulb_icon.svg", func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("%s request for %s from %s.", r.Method, r.RequestURI, r.RemoteAddr)
+		http.ServeFile(w, r, "lightbulb_icon.svg")
 	})
 
 	port := os.Getenv("PORT")
@@ -93,6 +104,6 @@ func main() {
 		port = "8080"
 	}
 
-	log.Print("Hello from Cloud Run! The container started successfully and is listening for HTTP requests on $PORT.")
+	log.Printf("Hello from Cloud Run! The container started successfully and is listening for HTTP requests on $PORT, %s.", port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
 }
