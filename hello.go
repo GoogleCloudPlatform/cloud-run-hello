@@ -90,12 +90,12 @@ func main() {
 	})
 
 	http.HandleFunc("/cloud_bg.svg", func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("%s request for %s from %s.", r.Method, r.RequestURI, r.RemoteAddr)
+		log.Printf("%s request for %s from %s.", r.Method, r.Host, r.URL)
 		http.ServeFile(w, r, "cloud_bg.svg")
 	})
 
 	http.HandleFunc("/lightbulb_icon.svg", func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("%s request for %s from %s.", r.Method, r.RequestURI, r.RemoteAddr)
+		log.Printf("%s request for %s from %s.", r.Method, r.Host, r.URL)
 		http.ServeFile(w, r, "lightbulb_icon.svg")
 	})
 
