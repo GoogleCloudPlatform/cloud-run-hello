@@ -23,7 +23,6 @@ COPY --from=builder /go/src/cloudrun/hello/hello /hello
 
 # Copy template & assets
 COPY index.html /index.html
-COPY ./assets .
-
+COPY assets ./assets/
 # Run the web service on container startup.
 CMD ["/hello"]
