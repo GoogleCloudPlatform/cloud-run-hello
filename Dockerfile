@@ -23,8 +23,7 @@ COPY --from=builder /go/src/cloudrun/hello/hello /hello
 
 # Copy template & assets
 COPY index.html /index.html
-COPY cloud_bg.svg /cloud_bg.svg
-COPY lightbulb_icon.svg /lightbulb_icon.svg
+COPY ./assets .
 
 # Run the web service on container startup.
 CMD ["/hello"]

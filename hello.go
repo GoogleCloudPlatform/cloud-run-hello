@@ -89,15 +89,8 @@ func main() {
 		log.Printf("%s request from %s for %s", r.Method, r.Host, r.URL)
 	})
 
-	http.HandleFunc("/cloud_bg.svg", func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("%s request for %s from %s.", r.Method, r.Host, r.URL)
-		http.ServeFile(w, r, "cloud_bg.svg")
-	})
-
-	http.HandleFunc("/lightbulb_icon.svg", func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("%s request for %s from %s.", r.Method, r.Host, r.URL)
-		http.ServeFile(w, r, "lightbulb_icon.svg")
-	})
+	fs := http.FileServer(http.Dir("./assets"))
+	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
 	port := os.Getenv("PORT")
 	if port == "" {
