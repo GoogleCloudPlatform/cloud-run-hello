@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang=en>
-
 <head>
 <meta charset=utf-8>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -156,30 +155,16 @@
 
 <body>
 	<div class="container">
-
 		<div class="hero">
-			<div style="text-align:center;">	
+			<div style="text-align:center;">
 				<img src="/assets/celebration.svg">
 			</div>
 
 			<div class="message">
-				<h1>It's running! {{if .NetworkEgressError }}but...{{end}}</h1>
+				<h1>It's running!</h1>
 				<h2>Congrats, you successfully deployed a container image to Cloud Run</h2>
 			</div>
 		</div>
-
-		{{if .NetworkEgressError}}
-		<div class="details warning">
-			<p>
-				Network egress is not properly configured for Cloud Run on GKE. This blocks all requests from Cloud Run
-				services
-				to Google Cloud APIs and external services. To resolve, see the topic
-				<a href="https://cloud.google.com/run/docs/gke/setup#enabling_all_outbound_network_access"
-					target="_blank">enable outbound network access</a> for Cloud Run services in your Kubernetes Engine
-				cluster.
-			</p>
-		</div>
-		{{end}}
 
 		<div class="details">
 			<p>This created the revision <span class="code">{{.Revision}}</span> of the Cloud Run service <span
@@ -202,8 +187,6 @@
 				<a href="https://cloud.google.com/run/docs/quickstarts/build-and-deploy" target="_blank">
 					BUILD AND DEPLOY QUICKSTART</a></p>
 		</div>
-
 	</div>
 </body>
-
 </html>

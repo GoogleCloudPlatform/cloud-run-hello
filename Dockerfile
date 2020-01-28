@@ -14,8 +14,8 @@ RUN CGO_ENABLED=0 GOOS=linux go build -v -o hello
 
 # Use a Docker multi-stage build to create a lean production image.
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
-# Use Google managed base image
-# https://cloud.google.com/container-registry/docs/managed-base-images
+# Use Google managed base images:
+#   https://cloud.google.com/container-registry/docs/managed-base-images
 FROM marketplace.gcr.io/google/ubuntu1804:latest
 
 # Copy the binary to the production image from the builder stage.
