@@ -86,7 +86,6 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		tmpl.Execute(w, data)
-		log.Printf("%s request from %s for %s", r.Method, r.Host, r.URL)
 	})
 
 	fs := http.FileServer(http.Dir("./assets"))
@@ -97,6 +96,6 @@ func main() {
 		port = "8080"
 	}
 
-	log.Printf("Hello from Cloud Run! The container started successfully and is listening for HTTP requests on $PORT, %s.", port)
+	log.Print("Hello from Cloud Run! The container started successfully and is listening for HTTP requests on $PORT")
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
 }
