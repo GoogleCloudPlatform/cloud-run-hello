@@ -88,11 +88,14 @@ func main() {
 		tmpl.Execute(w, data)
 	})
 
+	fs := http.FileServer(http.Dir("./assets"))
+	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
 
-	log.Print("Hello from Cloud Run! The container started successfully and is listening for HTTP requests on $PORT.")
+	log.Print("Hello from Cloud Run! The container started successfully and is listening for HTTP requests on $PORT")
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
 }
