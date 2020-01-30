@@ -94,6 +94,7 @@
 	border: 1px solid #DDD;
 	border-radius: 2px;
 	padding: 0 6px;
+	font-size: 14px;
 	font-weight: 500;
  }
 
@@ -145,6 +146,30 @@
 	  margin-top: 0;
 	}
   }
+
+@media (prefers-color-scheme: light) {
+	body {
+		background-color: white;
+		background: url('/assets/cloud_bg.svg');
+		background-size: cover;
+		background-position: center;
+		background-attachment: fixed;
+		line-height: 1.6;
+	}
+}	
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background: black url('/assets/dark_bg.svg');
+		background-size: cover;
+		background-position: center;
+		background-attachment: fixed;
+		line-height: 1.6;
+		font-family: 'Roboto', sans-serif;
+		color:white;
+	}
+}
+
 </style>
 </head>
 
@@ -153,7 +178,10 @@
 
 		<div class="hero">
 			<div style="text-align:center;">	
-				<img src="/assets/celebration.svg" alt="celebration" width="427" height="231">
+				<picture>
+					<source srcset="/assets/celebration-dark.svg" alt="celebration" media="(prefers-color-scheme: dark)">
+					<img src="/assets/celebration.svg" alt="celebration" width="427" height="231">
+				</picture>
 			</div>
 
 			<div class="message">
@@ -176,17 +204,17 @@
 		{{end}}
 
 		<div class="details">
-		<p>This created the revision <span class="code">{{.Revision}}</span> of the Cloud Run service <span
+		<!-- <p>This created the revision <span class="code">{{.Revision}}</span> of the Cloud Run service <span
 					class="code">{{.Service}}</span>{{if .ProjectFound}} in the GCP project <span
-					class="code">{{.Project}}</span>{{end}}.</p>
+					class="code">{{.Project}}</span>{{end}}.</p> -->
 					
-		<!-- Hard coded for testing 
+		<!-- Hard coded for testing -->
 			<p>This created the revision <span class="code">hello-celebration-00001-yoc</span> of the Cloud Run service <span
 						class="code">hello-celebration</span> in the GCP project <span
 						class="code">serverless-ux-playground</span></p> 
-		-->
+	
 
-			<p class="callout">
+		<p class="callout">
 				<label><img src="/assets/lightbulb_icon.svg" alt="lightbulb_icon" style="margin:0px 8px 0px 0px; vertical-align:text-top;">
 					You can deploy any container to Cloud Run that listens for HTTP requests on the port defined by the
 					<code>PORT</code> environment variable.
