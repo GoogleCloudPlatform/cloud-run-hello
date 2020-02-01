@@ -24,11 +24,10 @@ import (
 )
 
 type Data struct {
-	Service            string
-	Revision           string
-	Project            string
-	NetworkEgressError bool
-	ProjectFound       bool
+	Service      string
+	Revision     string
+	Project      string
+	ProjectFound bool
 }
 
 func main() {
@@ -51,21 +50,6 @@ func main() {
 		projectFound = true
 	}
 
-	// Check for network egress configuration (CR-GKE)
-	networkEgressError := false
-	if projectFound == false {
-		// Check to see if we can reach something off the cluster e.g. www.google.com
-		req, _ = http.NewRequest("HEAD", "https://www.google.com", nil)
-		res, err = client.Do(req)
-		if err == nil && res.StatusCode >= 200 && res.StatusCode <= 299 {
-			// egress worked successfully
-			log.Print("Verified that network egress is working as expected.")
-		} else {
-			log.Print("Network egress appears to be blocked. Unable to access https://www.google.com.")
-			networkEgressError = true
-		}
-	}
-
 	service := os.Getenv("K_SERVICE")
 	if service == "" {
 		service = "???"
@@ -77,11 +61,10 @@ func main() {
 	}
 
 	data := Data{
-		Service:            service,
-		Revision:           revision,
-		Project:            project,
-		NetworkEgressError: networkEgressError,
-		ProjectFound:       projectFound,
+		Service:      service,
+		Revision:     revision,
+		Project:      project,
+		ProjectFound: projectFound,
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
