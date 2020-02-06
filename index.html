@@ -145,18 +145,7 @@
 	.container {
 	  margin-top: 0;
 	}
-  }
-
-@media (prefers-color-scheme: light) {
-	body {
-		background-color: white;
-		background: url('/assets/cloud_bg.svg');
-		background-size: cover;
-		background-position: center;
-		background-attachment: fixed;
-		line-height: 1.6;
-	}
-}	
+  }	
 
 @media (prefers-color-scheme: dark) {
 	body {
@@ -179,8 +168,8 @@
 		<div class="hero">
 			<div style="text-align:center;">	
 				<picture>
-					<source srcset="/assets/celebration-dark.svg" alt="celebration" media="(prefers-color-scheme: dark)">
-					<img src="/assets/celebration.svg" alt="celebration" width="427" height="231">
+					<source srcset="/assets/celebration-dark.svg" alt="People jumping and celerbating with a purple unicron" media="(prefers-color-scheme: dark)">
+					<img src="/assets/celebration.svg" alt="People jumping and celerbating with a purple unicron" width="427" height="231">
 				</picture>
 			</div>
 
@@ -204,23 +193,14 @@
 		{{end}}
 
 		<div class="details">
-		<p>This created the revision <span class="code">{{.Revision}}</span> of the Cloud Run service <span
-					class="code">{{.Service}}</span>{{if .ProjectFound}} in the GCP project <span
-					class="code">{{.Project}}</span>{{end}}.</p>
-					
-		<!-- Hard coded for testing -->
-		<!--	<p>This created the revision <span class="code">hello-celebration-00001-yoc</span> of the Cloud Run service <span
-						class="code">hello-celebration</span> in the GCP project <span
-						class="code">serverless-ux-playground</span></p> -->
-	
-
+		<p>This created the revision <span class="code">{{.Revision}}</span> of the Cloud Run service <span class="code">{{.Service}}</span>{{if .ProjectFound}} in the GCP project <span class="code">{{.Project}}</span>{{end}}.</p>			
 		<p class="callout">
-				<label><img src="/assets/lightbulb_icon.svg" alt="lightbulb_icon" style="margin:0px 8px 0px 0px; vertical-align:text-top;">
+				<label><img src="/assets/lightbulb_icon.svg" alt="lightbulb icon" style="margin:0px 8px 0px 0px; vertical-align:text-top;">
 					You can deploy any container to Cloud Run that listens for HTTP requests on the port defined by the
 					<code>PORT</code> environment variable.
 					Cloud Run will scale automatically based on requests and you never have to worry about
 					infrastructure.</label>
-			</p>
+		</p>
 
 			<h3>What's next?</h3>
 			<p class="next">Follow the Quickstart tutorial to build a “Hello World” application in your favorite
