@@ -30,7 +30,7 @@
  h2 {
 	font-size: 18px;
 	font-weight: normal;
-	margin-top: 0px;
+	margin-top: 4px;
  }
 
  h3 {
@@ -45,14 +45,13 @@
  }
 
  .container {
-	max-width: 840px;
+	max-width: 700px;
 	margin-left: auto;
 	margin-right: auto;
 } 
 
  .hero {
-	margin-top: 40px;
-	margin-bottom: 24px;
+	margin-top: 172px;
  }
 
  .hero .logo {
@@ -70,6 +69,7 @@
  .details {
 	clear: both;
 	height: 400px;
+	line-height: 1.8;
  }
 
  .callout {
@@ -79,6 +79,7 @@
 	color: #1967D2;
 	font-weight: 600;
 	padding: 16px 24px;
+	line-height: 1.6;
  }
 
  .callout label {
@@ -89,12 +90,11 @@
 
  .code {
 	font-family: 'Roboto Mono', Courier, monospace;
-	color: #D81B60;
+	color: #F90056;
 	background-color: #F8F8F8;
 	border: 1px solid #DDD;
 	border-radius: 2px;
 	padding: 0 6px;
-	font-size: 14px;
 	font-weight: 500;
  }
 
@@ -145,20 +145,12 @@
 	.container {
 	  margin-top: 0;
 	}
-  }	
 
-@media (prefers-color-scheme: dark) {
-	body {
-		background: black url('/assets/dark_bg.svg');
-		background-size: cover;
-		background-position: center;
-		background-attachment: fixed;
-		line-height: 1.6;
-		font-family: 'Roboto', sans-serif;
-		color:white;
+	.hero {
+	  margin-top: 0;
+	  margin-bottom: 24px;
 	}
-}
-
+  }
 </style>
 </head>
 
@@ -167,10 +159,7 @@
 
 		<div class="hero">
 			<div style="text-align:center;">	
-				<picture>
-					<source srcset="/assets/celebration-dark.svg" alt="People jumping and celerbating with a purple unicron" media="(prefers-color-scheme: dark)">
-					<img src="/assets/celebration.svg" alt="People jumping and celerbating with a purple unicron" width="427" height="231">
-				</picture>
+				<img src="/assets/celebration.svg">
 			</div>
 
 			<div class="message">
@@ -193,14 +182,17 @@
 		{{end}}
 
 		<div class="details">
-		<p>This created the revision <span class="code">{{.Revision}}</span> of the Cloud Run service <span class="code">{{.Service}}</span>{{if .ProjectFound}} in the GCP project <span class="code">{{.Project}}</span>{{end}}.</p>			
-		<p class="callout">
-				<label><img src="/assets/lightbulb_icon.svg" alt="lightbulb icon" style="margin:0px 8px 0px 0px; vertical-align:text-top;">
+			<p>This created the revision <span class="code">{{.Revision}}</span> of the Cloud Run service <span
+					class="code">{{.Service}}</span>{{if .ProjectFound}} in the GCP project <span
+					class="code">{{.Project}}</span>{{end}}.</p>
+
+			<p class="callout">
+				<label><img src="/assets/lightbulb_icon.svg" style="margin:0px 8px 0px 0px; vertical-align:text-top;">
 					You can deploy any container to Cloud Run that listens for HTTP requests on the port defined by the
 					<code>PORT</code> environment variable.
 					Cloud Run will scale automatically based on requests and you never have to worry about
 					infrastructure.</label>
-		</p>
+			</p>
 
 			<h3>What's next?</h3>
 			<p class="next">Follow the Quickstart tutorial to build a “Hello World” application in your favorite
