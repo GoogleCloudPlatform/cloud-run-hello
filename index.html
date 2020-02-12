@@ -150,6 +150,18 @@
 	  margin-bottom: 24px;
 	}
   }
+  @media (prefers-color-scheme: dark) {
+    body {
+        background: black url('/assets/dark_bg.svg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        line-height: 1.6;
+        font-family: 'Roboto', sans-serif;
+        color:white;
+    }
+}
+
 </style>
 </head>
 
@@ -157,7 +169,10 @@
 	<div class="container">
 		<div class="hero">
 			<div style="text-align:center;">
-				<img src="/assets/celebration.svg">
+				<picture>
+                    <source srcset="/assets/celebration-dark.svg" alt="celebration" media="(prefers-color-scheme: dark)">
+                    <img src="/assets/celebration.svg" alt="celebration" width="427" height="231">
+                </picture>
 			</div>
 
 			<div class="message">
