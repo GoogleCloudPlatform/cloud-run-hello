@@ -87,7 +87,7 @@ h3 {
 	text-indent: -2em;
 }
 
-.code {
+code {
 	font-family: 'Roboto Mono', Courier, monospace;
 	color: #A30038;
 	background-color: #F8F8F8;
@@ -156,9 +156,10 @@ h3 {
 		</div>
 
 		<div class="details">
-			<p>This created the revision <span class="code">{{.Revision}}</span> of the Cloud Run service <span
-					class="code">{{.Service}}</span>{{if .ProjectFound}} in the GCP project <span
-					class="code">{{.Project}}</span>{{end}}.</p>
+			<p>
+                This created the revision <code>{{.Revision}}</code> of the Cloud Run service <code>{{.Service}}</code>
+                {{if .ProjectFound}} in the GCP project <code>{{.Project}}</code>{{end}}.
+            </p>
 
 			<p class="callout">
 				<label>
