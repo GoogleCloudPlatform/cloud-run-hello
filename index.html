@@ -73,18 +73,13 @@ h3 {
 
 .callout {
 	font-size: 14px;
-	background-color: #E8F0FE;
-	width: 100%;
 	color: #1967D2;
 	font-weight: 600;
-	padding: 16px 24px;
+	padding: 16px 24px 16px 40px;
+	background: url('/assets/lightbulb_icon.svg') #E8F0FE ;
+	background-position: 16px 16px;
+	background-repeat: no-repeat;
 	line-height: 1.6;
-}
-
-.callout label {
-	display: block;
-	padding-left: 2em;
-	text-indent: -2em;
 }
 
 code {
@@ -162,13 +157,10 @@ code {
             </p>
 
 			<p class="callout">
-				<label>
-					<img src="/assets/lightbulb_icon.svg" alt="A lightbulb" style="margin:0px 8px 0px 0px; vertical-align:text-top;">
-					You can deploy any container to Cloud Run that listens for HTTP requests on the port defined by the
-					<code>PORT</code> environment variable.
-					Cloud Run will scale automatically based on requests and you never have to worry about
-					infrastructure.
-				</label>
+				You can deploy any container to Cloud Run that listens for HTTP requests on the port defined by the
+				<code>PORT</code> environment variable.
+				Cloud Run will scale automatically based on requests and you never have to worry about
+				infrastructure.
 			</p>
 
 			<h3>What's next?</h3>
