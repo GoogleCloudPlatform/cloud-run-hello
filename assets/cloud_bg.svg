@@ -1,13 +1,3 @@
-
-Open SVG
-Paste markup
-Demo
-Contribute
-About
-Powered by the incredible SVGO
-
-
-5.19k → 2.59k 49.95%
 <svg width="1444" height="679" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <filter x="-1.4%" y="-1.7%" width="102.9%" height="104.8%" filterUnits="objectBoundingBox" id="a">
