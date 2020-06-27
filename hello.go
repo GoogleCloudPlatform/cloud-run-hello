@@ -20,7 +20,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
+    "os"
+    "regexp"
 )
 
 type Data struct {
@@ -28,6 +29,8 @@ type Data struct {
 	Revision     string
 	Project      string
 	ProjectFound bool
+	Region       string
+	RegionFound  bool
 }
 
 func main() {
@@ -41,13 +44,41 @@ func main() {
 	req.Header.Set("Metadata-Flavor", "Google")
 	res, err := client.Do(req)
 	if err == nil {
-		defer res.Body.Close()
-		responseBody, err := ioutil.ReadAll(res.Body)
-		if err != nil {
-			log.Fatal(err)
-		}
-		project = string(responseBody)
-		projectFound = true
+        defer res.Body.Close()
+        if(res.StatusCode == 200) {
+            responseBody, err := ioutil.ReadAll(res.Body)
+            if err != nil {
+                log.Fatal(err)
+            }
+            project = string(responseBody)
+            if(project != "") {
+                projectFound = true
+            }
+        }
+    }
+    
+	// Get region from metadata server
+	region := "???"
+	regionFound := false
+	req, _ = http.NewRequest("GET", "http://metadata.google.internal/computeMetadata/v1/instance/region", nil)
+	req.Header.Set("Metadata-Flavor", "Google")
+	res, err = client.Do(req)
+	if err == nil {
+        defer res.Body.Close()
+        if(res.StatusCode == 200) {
+            log.Print("region")
+            log.Print(res.StatusCode)
+            responseBody, err := ioutil.ReadAll(res.Body)
+            if err != nil {
+                log.Fatal(err)
+            }
+            re := regexp.MustCompile(`regions\/(.*)$`)
+            match := re.FindStringSubmatch(string(responseBody))
+            if(len(match) > 1) {
+                region = match[1]
+                regionFound = true
+            }
+        }
 	}
 
 	service := os.Getenv("K_SERVICE")
@@ -64,7 +95,9 @@ func main() {
 		Service:      service,
 		Revision:     revision,
 		Project:      project,
-		ProjectFound: projectFound,
+        ProjectFound: projectFound,
+		Region:       region,
+		RegionFound:  regionFound,
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
