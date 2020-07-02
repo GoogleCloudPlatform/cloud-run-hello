@@ -28,17 +28,14 @@ type Data struct {
 	Service      string
 	Revision     string
 	Project      string
-	ProjectFound bool
 	Region       string
-	RegionFound  bool
 }
 
 func main() {
 	tmpl := template.Must(template.ParseFiles("index.html"))
 
 	// Get project ID from metadata server
-	project := "???"
-	projectFound := false
+	project := ""
 	client := &http.Client{}
 	req, _ := http.NewRequest("GET", "http://metadata.google.internal/computeMetadata/v1/project/project-id", nil)
 	req.Header.Set("Metadata-Flavor", "Google")
@@ -51,23 +48,17 @@ func main() {
 				log.Fatal(err)
 			}
 			project = string(responseBody)
-			if project != "" {
-				projectFound = true
-			}
 		}
 	}
 
 	// Get region from metadata server
-	region := "???"
-	regionFound := false
+	region := ""
 	req, _ = http.NewRequest("GET", "http://metadata.google.internal/computeMetadata/v1/instance/region", nil)
 	req.Header.Set("Metadata-Flavor", "Google")
 	res, err = client.Do(req)
 	if err == nil {
 		defer res.Body.Close()
 		if res.StatusCode == 200 {
-			log.Print("region")
-			log.Print(res.StatusCode)
 			responseBody, err := ioutil.ReadAll(res.Body)
 			if err != nil {
 				log.Fatal(err)
@@ -76,28 +67,18 @@ func main() {
 			match := re.FindStringSubmatch(string(responseBody))
 			if len(match) > 1 {
 				region = match[1]
-				regionFound = true
 			}
 		}
 	}
 
 	service := os.Getenv("K_SERVICE")
-	if service == "" {
-		service = "???"
-	}
-
 	revision := os.Getenv("K_REVISION")
-	if revision == "" {
-		revision = "???"
-	}
 
 	data := Data{
 		Service:      service,
 		Revision:     revision,
 		Project:      project,
-		ProjectFound: projectFound,
 		Region:       region,
-		RegionFound:  regionFound,
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
