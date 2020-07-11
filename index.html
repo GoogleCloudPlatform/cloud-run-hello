@@ -153,7 +153,8 @@ code {
 		<div class="details">
 			<p>
                 This created the revision <code>{{.Revision}}</code> of the Cloud Run service <code>{{.Service}}</code>
-                {{if .ProjectFound}} in the GCP project <code>{{.Project}}</code>{{end}}.
+                {{if .Region}} in <code>{{.Region}}</code>{{end}}
+                {{if .Project}} in the GCP project <code>{{.Project}}</code>{{end}}.
             </p>
 
 			<p class="callout">
