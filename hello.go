@@ -63,11 +63,7 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
-			re := regexp.MustCompile(`regions\/(.*)$`)
-			match := re.FindStringSubmatch(string(responseBody))
-			if len(match) > 1 {
-				region = match[1]
-			}
+			region = regexp.MustCompile(`projects/[^/]*/regions/`).ReplaceAllString(string(responseBody), "")
 		}
 	}
 
