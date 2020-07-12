@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oops, something went wrong... | Cloud Run</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="preload" as="font">
+<link
+  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsSAAALEgHS3X78AAAB5klEQVRYha2XMVLDMBBFPxl6qCjciBskNzA3AE5AqrTQuaVVR1pX4QSYGyQ3SGqGATcu3JBUlGGUiTPyeiWvZH6TsSTLb/+XN8nZfr+H0lUBYAvgucySbzBSupoCmJRZ8sTNx2p0vG8J4AHAl9LVQunqmtnPQD4qXa0d81GyARo1IC/2hmWWGIfeAYwBGIi7fwMos2QNYEfmTLWXZKw4fl4AeKOQQxwAcaERrbIg14MjCQKwYrA1KJI+gBtmjLqAIZEcXsNGSlfb42a27sssKaw15lz8ePbcGOdcrzPViFz3uuCIwVZQJBIAbiMuBlviSCQASulqEgjQqPctaQE4+gEiYrDljYQ6AIcLU2ZM6gJ8kUgBxp6uGKJOJFIACJuSRK1IOgCecxDzNrh0iuScW/D7+eG4LxGuk6sDcDVbTZhuCEe1sV/JxuFpnacF5wDX/zsAV7OVOZS3EQ8/tOo6Tw+tWgqwqfN0S8Ziqp/Xedr6SScFWDBjIQAny+lEC8CT/5KsC7G/ZbkXwFF9WefpmoxJq+9YHgMQc/qdlscAhNrvtdwJ4Mh/x1Thq77XcieApHoPgNjyUABJ8wmyfBAAU32w5SyAI/+5p/tFW84CkOpfzb9kaqll/yDLfQDsgy2Z6gdb3hKAP2n+6m+fxBVHAAAAAElFTkSuQmCC"
+  rel="icon" 
+  type="image/png" 
+/>
+<style>
+ body {
+	font-family: 'Roboto', sans-serif;
+	font-display: fallback;
+	background: url('/assets/cloudy-bg.svg');
+	background-size: cover;
+	background-position: center;
+	line-height: 1.6;
+ }
+
+h1 {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 0px;
+}
+
+h2 {
+	font-size: 18px;
+	font-weight: normal;
+	margin-top: 4px;
+}
+
+h3 {
+	font-size: 20px;
+	margin-bottom: 0px;
+}
+
+.next {
+    font-size: 15px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+.container {
+	max-width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+} 
+
+.hero {
+	margin-top: 172px;
+}
+
+.hero .logo {
+	width: 140px;
+	float: left;
+	margin-right: 32px;
+}
+
+.hero .message {
+	font-size: 15px;
+	text-align: center;
+	margin-bottom: 24px;
+}
+
+.details {
+	clear: both;
+	height: 400px;
+	line-height: 1.8;
+}
+
+code {
+	font-family: 'Roboto Mono', Courier, monospace;
+	color: #A30038;
+	background-color: #F8F8F8;
+	border: 1px solid #DDD;
+	border-radius: 2px;
+	padding: 0 6px;
+	font-weight: 500;
+}
+
+.cta a {
+	color: white;
+	text-decoration: none;
+	background-color: rgb(14, 101, 241);
+	padding: 8px 12px;
+	margin-top: 8px;
+	min-height: 36px;
+	border-radius: 2px;
+	font-weight: 600;
+}
+
+.cta a:hover {
+    background-color: rgb(66, 133, 244, 0.9);
+}
+
+@media (max-width: 600px) {
+    .hero .logo {
+        float: initial;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+	.container {
+        margin-top: 0;
+	}
+
+    .hero {
+        margin-top: 0;
+        margin-bottom: 24px;
+	}
+}
+
+</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="hero">
+			<div style="text-align:center;">
+				<picture>
+					<img src="/assets/sad-unicorn.svg" alt="A sad unicorn" width="186" height="284">
+				</picture>
+			</div>
+
+			<div class="message">
+				<h1>Oops, something went wrong…</h1>
+				<h2>Continuous deployment has been set up, but your repository has failed to build and deploy.</h2>
+			</div>
+		</div>
+
+		<div class="details">
+			<p>
+                This revision is a placeholder until your code successfully builds and deploys to the Cloud Run service <code>{{.Service}}</code> in <code>{{.Region}}</code> of the GCP project <code>{{.Project}}</code>.
+            </p>
+
+			<h3>What's next?</h3>
+            <ol>
+                <li>From the <a href="https://console.cloud.google.com/run/detail/{{.Region}}/{{.Service}}/revisions?project={{.Project}}" target="_blank" rel="noopener">Cloud Run service page</a>, click "Build History".</li>
+                <li>Examine your build logs to understand why it failed.</li>
+                <li>Fix the issue in your code or Dockerfile (if any).</li>
+                <li>Commit and push the change to your repository.</li>
+            </ol>
+			<p class="cta">
+				<a href="https://console.cloud.google.com/run/detail/{{.Region}}/{{.Service}}/revisions?project={{.Project}}" target="_blank" rel="noopener">
+					BACK TO CLOUD RUN
+                </a>
+            </p>
+		</div>
+	</div>
+</body>
+</html>
