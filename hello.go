@@ -25,10 +25,10 @@ import (
 )
 
 type Data struct {
-	Service      string
-	Revision     string
-	Project      string
-	Region       string
+	Service  string
+	Revision string
+	Project  string
+	Region   string
 }
 
 func main() {
@@ -71,10 +71,10 @@ func main() {
 	revision := os.Getenv("K_REVISION")
 
 	data := Data{
-		Service:      service,
-		Revision:     revision,
-		Project:      project,
-		Region:       region,
+		Service:  service,
+		Revision: revision,
+		Project:  project,
+		Region:   region,
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
