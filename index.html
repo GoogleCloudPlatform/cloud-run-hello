@@ -47,7 +47,7 @@ h3 {
 	max-width: 700px;
 	margin-left: auto;
 	margin-right: auto;
-} 
+}
 
 .hero {
 	margin-top: 172px;
@@ -93,17 +93,27 @@ code {
 }
 
 .cta a {
-	color: white;
+	background-color:rgba(233, 233, 233, 0.9);
+	color: rgb(14, 14, 14);
 	text-decoration: none;
-	background-color: rgb(14, 101, 241);
 	padding: 8px 12px;
 	margin-top: 8px;
+	margin-right: 4px;
 	min-height: 36px;
 	border-radius: 2px;
 	font-weight: 600;
 }
 
 .cta a:hover {
+	background-color:rgba(213, 213, 213, 0.9);
+}
+
+.cta a.primary {
+	color: white;
+	background-color: rgb(14, 101, 241);
+}
+
+.cta a.primary:hover {
     background-color: rgb(66, 133, 244, 0.9);
 }
 
@@ -152,10 +162,15 @@ code {
 
 		<div class="details">
 			<p>
-                This created the revision <code>{{.Revision}}</code> of the Cloud Run service <code>{{.Service}}</code>
-                {{if .Region}} in <code>{{.Region}}</code>{{end}}
-                {{if .Project}} in the GCP project <code>{{.Project}}</code>{{end}}.
-            </p>
+				{{ if and .Project (and .Region .Service)  }}
+					This created the revision <code>{{.Revision}}</code> of the Cloud Run service <code>{{.Service}}</code>
+					{{if .Region}} in <code>{{.Region}}</code>{{end}}
+					{{if .Project}} in the GCP project <code>{{.Project}}</code>{{end}}.
+				{{ else }}
+					This container <strong>does not</strong> seem to be running
+					on Cloud Run.
+				{{ end }}
+			</p>
 
 			<p class="callout">
 				You can deploy any container to Cloud Run that listens for HTTP requests on the port defined by the
@@ -169,8 +184,13 @@ code {
 				language into
 				a container image, and then deploy it to Cloud Run.</p>
 			<p class="cta">
-				<a href="https://cloud.google.com/run/docs/quickstarts/build-and-deploy" target="_blank" rel="noopener">
-					BUILD AND DEPLOY QUICKSTART</a></p>
+				<a class="primary" href="https://cloud.google.com/run/docs/quickstarts/build-and-deploy" target="_blank" rel="noopener">
+					BUILD AND DEPLOY QUICKSTART</a>
+				{{ if and .Project (and .Region .Service)  }}
+				<a href="https://console.cloud.google.com/run/detail/{{.Region}}/{{.Service}}/metrics?project={{.Project}}" target="_blank" rel="noopener">
+					VIEW IN CLOUD CONSOLE</a>
+				{{ end }}
+			</p>
 		</div>
 	</div>
 </body>
