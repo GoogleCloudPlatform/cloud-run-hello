@@ -47,7 +47,7 @@ h3 {
 	max-width: 700px;
 	margin-left: auto;
 	margin-right: auto;
-} 
+}
 
 .hero {
 	margin-top: 172px;
@@ -93,9 +93,9 @@ code {
 }
 
 .cta a {
-	color: white;
+	background-color:rgba(233, 233, 233, 0.9);
+	color: rgb(14, 14, 14);
 	text-decoration: none;
-	background-color: rgb(14, 101, 241);
 	padding: 8px 12px;
 	margin-top: 8px;
 	margin-right: 4px;
@@ -105,6 +105,15 @@ code {
 }
 
 .cta a:hover {
+	background-color:rgba(213, 213, 213, 0.9);
+}
+
+.cta a.primary {
+	color: white;
+	background-color: rgb(14, 101, 241);
+}
+
+.cta a.primary:hover {
     background-color: rgb(66, 133, 244, 0.9);
 }
 
@@ -175,7 +184,7 @@ code {
 				language into
 				a container image, and then deploy it to Cloud Run.</p>
 			<p class="cta">
-				<a href="https://cloud.google.com/run/docs/quickstarts/build-and-deploy" target="_blank" rel="noopener">
+				<a class="primary" href="https://cloud.google.com/run/docs/quickstarts/build-and-deploy" target="_blank" rel="noopener">
 					BUILD AND DEPLOY QUICKSTART</a>
 				{{ if and .Project (and .Region .Service)  }}
 				<a href="https://console.cloud.google.com/run/detail/{{.Region}}/{{.Service}}/metrics?project={{.Project}}" target="_blank" rel="noopener">
