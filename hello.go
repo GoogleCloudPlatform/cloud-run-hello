@@ -15,6 +15,9 @@
 package main
 
 import (
+	"context"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"io/ioutil"
@@ -22,6 +25,9 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+
+	cloudevents "github.com/cloudevents/sdk-go/v2"
+	cloudeventsClient "github.com/cloudevents/sdk-go/v2/client"
 )
 
 type Data struct {
@@ -29,6 +35,63 @@ type Data struct {
 	Revision string
 	Project  string
 	Region   string
+}
+
+func handleReceivedEvent(ctx context.Context, event cloudevents.Event) {
+	type LoggedEvent struct {
+		Severity  string            `json:"severity"`
+		EventType string            `json:"eventType"`
+		Message   string            `json:"message"`
+		Event     cloudevents.Event `json:"event"`
+	}
+	type PubSubMessage struct {
+		Data string `json:"data"`
+	}
+	type PubSubEvent struct {
+		Message PubSubMessage `json:"message"`
+	}
+
+	dataMessage := event.Data()
+
+	// In case of PubSub event, decode its payload to be printed in the message as-is.
+	if event.Type() == "google.cloud.pubsub.topic.v1.messagePublished" {
+		obj := &PubSubEvent{}
+		if err := event.DataAs(obj); err != nil {
+			fmt.Printf("Unable to decode PubSub data: %s\n", err.Error())
+		}
+		decodedMessage, decodingError := base64.StdEncoding.DecodeString(obj.Message.Data)
+		if decodingError != nil {
+			fmt.Printf("Unable to decode PubSub message: %s\n", decodingError.Error())
+		} else {
+			dataMessage = decodedMessage
+		}
+	}
+
+	loggedEvent := LoggedEvent{
+		Severity:  "INFO",
+		EventType: event.Type(),
+		Message:   fmt.Sprintf("Received event of type %s. Event data: %s", event.Type(), dataMessage),
+		Event:     event, // Always log full event data
+	}
+	jsonLog, err := json.Marshal(loggedEvent)
+	if err != nil {
+		fmt.Printf("Unable to log event to JSON: %s\n", err.Error())
+	} else {
+		fmt.Printf("%s\n", jsonLog)
+	}
+}
+
+func getEventsHandler() *cloudeventsClient.EventReceiver {
+	ctx := context.Background()
+	p, err := cloudevents.NewHTTP()
+	if err != nil {
+		log.Fatalf("failed to create http listener for receiving events: %s", err.Error())
+	}
+	h, err := cloudevents.NewHTTPReceiveHandler(ctx, p, handleReceivedEvent)
+	if err != nil {
+		log.Fatalf("failed to create handler for receiving events: %s", err.Error())
+	}
+	return h
 }
 
 func main() {
@@ -77,7 +140,14 @@ func main() {
 		Region:   region,
 	}
 
+	eventsHandler := getEventsHandler()
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodPost && r.Header.Get("ce-type") != "" {
+			// Handle cloud events.
+			eventsHandler.ServeHTTP(w, r)
+			return
+		}
+		// Default handler (hello page).
 		tmpl.Execute(w, data)
 	})
 
