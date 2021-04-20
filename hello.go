@@ -149,7 +149,7 @@ func main() {
 			return
 		}
 		// Default handler (hello page).
-		data.AuthenticatedEmail = r.Header.Get("X-Goog-Authenticated-User-Email")
+		data.AuthenticatedEmail = r.Header.Get("X-Goog-Authenticated-User-Email") // set when behind IAP
 		tmpl.Execute(w, data)
 	})
 
