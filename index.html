@@ -172,6 +172,13 @@ code {
 				{{ end }}
 			</p>
 
+			{{ with .AuthenticatedEmail }}
+				<p>
+					You are authenticated as
+					<code>{{.}}</code>.
+				</p>
+			{{ end }}
+
 			<p class="callout">
 				You can deploy any container to Cloud Run that listens for HTTP requests on the port defined by the
 				<code>PORT</code> environment variable.

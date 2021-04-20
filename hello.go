@@ -31,10 +31,11 @@ import (
 )
 
 type Data struct {
-	Service  string
-	Revision string
-	Project  string
-	Region   string
+	Service            string
+	Revision           string
+	Project            string
+	Region             string
+	AuthenticatedEmail string
 }
 
 func handleReceivedEvent(ctx context.Context, event cloudevents.Event) {
@@ -148,6 +149,7 @@ func main() {
 			return
 		}
 		// Default handler (hello page).
+		data.AuthenticatedEmail = r.Header.Get("X-Goog-Authenticated-User-Email")
 		tmpl.Execute(w, data)
 	})
 
