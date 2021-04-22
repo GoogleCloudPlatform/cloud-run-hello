@@ -67,8 +67,12 @@ h3 {
 
 .details {
 	clear: both;
-	height: 400px;
+	height: 330px;
 	line-height: 1.8;
+}
+
+.footnote {
+    font-size:13px;    
 }
 
 .callout {
@@ -197,8 +201,11 @@ code {
 				<a href="https://console.cloud.google.com/run/detail/{{.Region}}/{{.Service}}/metrics?project={{.Project}}" target="_blank" rel="noopener">
 					VIEW IN CLOUD CONSOLE</a>
 				{{ end }}
-			</p>
+			</p>            
 		</div>
+        <p class="footnote">Find the source code for this container at 
+             <a href="https://github.com/GoogleCloudPlatform/cloud-run-hello">Github.</a>
+        </p>
 	</div>
 </body>
 </html>
