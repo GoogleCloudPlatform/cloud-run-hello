@@ -1,0 +1,11 @@
+name: jobs-pr
+description: "Build and deploy a test job"
+filename: testing/jobs.pr.cloudbuild.yaml
+github:
+  name: cloud-run-hello
+  owner: GoogleCloudPlatform
+  pullRequest:
+    branch: ^master$
+    commentControl: COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY
+includedFiles:
+- jobs/**

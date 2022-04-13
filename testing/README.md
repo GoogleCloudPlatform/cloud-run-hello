@@ -20,6 +20,11 @@ Each sample has Cloud Build triggers:
 * A **Merge trigger** which builds and pushes new container images.
 * A **Nightly trigger** which checks the affects of product changes, environment changes, and flakiness.
 
+The trigger configs are defined in `testing/triggers` and can be imported via:
+
+```sh
+gcloud beta builds triggers import --source=testing/triggers/jobs.<TYPE>.yaml
+```
 
 ## Manually Start Cloud Builds
 
