@@ -31,7 +31,7 @@ steps:
       --max-retries 0 \
       --wait
 
-- id: 'Integration Tests'
+- id: 'Check Job Logs'
   name: 'gcr.io/cloud-builders/gcloud:$_CLOUDSDK_VERSION'
   entrypoint: /bin/bash
   args:

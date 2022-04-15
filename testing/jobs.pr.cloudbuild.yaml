@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,9 +33,13 @@ steps:
   args: ['test', '-v']
 
 - id: 'Build Container Image'
-  name: 'gcr.io/cloud-builders/gcloud:$_CLOUDSDK_VERSION'
+  name: 'gcr.io/${PROJECT_ID}/pack:latest'
   dir: '${_SAMPLE_DIR}'
-  args: ['builds', 'submit', '--pack', 'image=gcr.io/${PROJECT_ID}/${_IMAGE}:${SHORT_SHA}'] # Tag docker image with git commit sha
+  args: ['build', '--builder', 'gcr.io/buildpacks/builder:v1', 'gcr.io/${PROJECT_ID}/${_IMAGE}:${SHORT_SHA}'] # Tag docker image with git commit sha
+
+- id: 'Push Container Image to Container Registry'
+  name: 'gcr.io/cloud-builders/docker:latest'
+  args: ['push', 'gcr.io/${PROJECT_ID}/${_IMAGE}:${SHORT_SHA}']
 
 - id: 'Deploy to Cloud Run'
   name: 'gcr.io/cloud-builders/gcloud:$_CLOUDSDK_VERSION'
@@ -54,7 +58,7 @@ steps:
       --max-retries 0 \
       --wait
 
-- id: 'Integration Tests'
+- id: 'Check Job Logs'
   name: 'gcr.io/cloud-builders/gcloud:$_CLOUDSDK_VERSION'
   entrypoint: /bin/bash
   args:

@@ -15,19 +15,19 @@
 steps:
 
 - id: 'Build Container Image'
-  name: 'gcr.io/cloud-builders/gcloud:$_CLOUDSDK_VERSION'
+  name: 'gcr.io/${PROJECT_ID}/pack:latest'
   dir: '${_SAMPLE_DIR}'
-  args: ['builds', 'submit', '--pack', 'image=gcr.io/${PROJECT_ID}/${_IMAGE}:latest']
+  args: ['build', '--builder', 'gcr.io/buildpacks/builder:v1', 'gcr.io/${PROJECT_ID}/${_IMAGE}:latest']
 
-- id: 'Pull Container Image'
+- id: 'Push Container Image to Container Registry'
   name: 'gcr.io/cloud-builders/docker:latest'
-  args: ['pull', 'gcr.io/${PROJECT_ID}/${_IMAGE}:latest']
+  args: ['push', 'gcr.io/${PROJECT_ID}/${_IMAGE}:latest']
 
-- id: 'Tag Container Image'
+- id: 'Tag Container Image for Artifact Registry'
   name: 'gcr.io/cloud-builders/docker:latest'
   args: ['tag', 'gcr.io/${PROJECT_ID}/${_IMAGE}:latest', '${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest']
 
-- id: 'Push Container Image'
+- id: 'Push Container Image to Artifact Registry'
   name: 'gcr.io/cloud-builders/docker:latest'
   args: ['push', '${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest']
 

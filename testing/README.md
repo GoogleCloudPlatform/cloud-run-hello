@@ -12,6 +12,9 @@ A Google Cloud Project is required in order to run the tests in the Cloud Run Sa
 * Cloud Build must be given access to deploy Cloud Run services (see [Deploying to Cloud Run][access]).
 * Cloud Build GitHub App needs to be installed and connected to the repository. More info can be found in [Installing the Cloud Build app][app].
 
+[access]: https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run#continuous-iam
+[app]: https://cloud.google.com/build/docs/automating-builds/build-repos-from-github#installing_gcb_app
+
 ## Cloud Build Triggers
 
 Each sample has Cloud Build triggers:
@@ -37,8 +40,12 @@ gcloud builds submit \
   --substitutions "SHORT_SHA=manual,_SAMPLE_DIR=${SAMPLE}"
 ```
 
+## Manually Provide Pack CLI Cloud Builders
 
-[folder]: https://cloud.google.com/sdk/gcloud/reference/projects/create#--folder
-[access]: https://cloud.google.com/cloud-build/docs/deploying-builds/deploy-cloud-run
-[app]: https://cloud.google.com/cloud-build/docs/automating-builds/create-github-app-triggers#installing_the_cloud_build_app
-[sub]: https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values#using_user-defined_substitutions
+```sh
+docker pull buildpacksio/pack:0.24.0
+docker tag buildpacksio/pack:0.24.0 gcr.io/${PROJECT_ID}/pack:0.24.0
+docker push gcr.io/${PROJECT_ID}/pack:0.24.0
+docker tag gcr.io/${PROJECT_ID}/pack:0.24.0 gcr.io/${PROJECT_ID}/pack:latest
+docker push gcr.io/${PROJECT_ID}/pack
+```
