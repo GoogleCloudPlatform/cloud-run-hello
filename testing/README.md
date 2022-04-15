@@ -42,10 +42,6 @@ gcloud builds submit \
 
 ## Manually Provide Pack CLI Cloud Builders
 
-```sh
-docker pull buildpacksio/pack:0.24.0
-docker tag buildpacksio/pack:0.24.0 gcr.io/${PROJECT_ID}/pack:0.24.0
-docker push gcr.io/${PROJECT_ID}/pack:0.24.0
-docker tag gcr.io/${PROJECT_ID}/pack:0.24.0 gcr.io/${PROJECT_ID}/pack:latest
-docker push gcr.io/${PROJECT_ID}/pack
-```
+Follow [instructions][pack] for creating your own Cloud Builder with the `pack` CLI.
+
+[pack]: https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/pack
