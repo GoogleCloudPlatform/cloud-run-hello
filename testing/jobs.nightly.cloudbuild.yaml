@@ -63,6 +63,6 @@ steps:
 
 substitutions:
   _IMAGE: job
-  _LOCATION: us
+  _REGION: us
   _REPO: container
   _CLOUDSDK_VERSION: latest
