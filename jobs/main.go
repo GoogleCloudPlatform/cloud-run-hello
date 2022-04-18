@@ -34,8 +34,8 @@ type Config struct {
 }
 
 func configFromEnv() (Config, error) {
-	taskNum := os.Getenv("TASK_NUM")
-	attemptNum := os.Getenv("ATTEMPT_NUM")
+	taskNum := os.Getenv("CLOUD_RUN_TASK_INDEX")
+	attemptNum := os.Getenv("CLOUD_RUN_TASK_ATTEMPT")
 	sleepMs, err := sleepMsToInt(os.Getenv("SLEEP_MS"))
 	failRate, err := failRateToFloat(os.Getenv("FAIL_RATE"))
 

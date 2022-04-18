@@ -24,8 +24,8 @@ import (
 
 func TestSuccessfulJob(t *testing.T) {
 	os.Setenv("SLEEP_MS", "0")
-	os.Setenv("TASK_NUM", "1")
-	os.Setenv("ATTEMPT_NUM", "1")
+	os.Setenv("CLOUD_RUN_TASK_INDEX", "1")
+	os.Setenv("CLOUD_RUN_TASK_ATTEMPT", "1")
 	os.Unsetenv("FAIL_RATE")
 
 	var buf bytes.Buffer
