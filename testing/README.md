@@ -34,10 +34,9 @@ gcloud beta builds triggers import --source=testing/triggers/jobs.<TYPE>.yaml
 To manually trigger a Cloud Run (fully managed) build via CLI:
 
 ```sh
-export SAMPLE=jobs
 gcloud builds submit \
   --config "testing/$SAMPLE.pr.cloudbuild.yaml" \
-  --substitutions "SHORT_SHA=manual,_SAMPLE_DIR=${SAMPLE}"
+  --substitutions "SHORT_SHA=manual"
 ```
 
 ## Manually Provide Pack CLI Cloud Builders

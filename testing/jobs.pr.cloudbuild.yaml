@@ -91,6 +91,5 @@ steps:
 
 substitutions:
   _IMAGE: job-pr
-  _SAMPLE_DIR: jobs
   _REGION: us-central1
   _CLOUDSDK_VERSION: latest
