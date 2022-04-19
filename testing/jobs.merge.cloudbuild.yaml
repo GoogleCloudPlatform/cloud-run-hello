@@ -16,7 +16,7 @@ steps:
 
 - id: 'Build Container Image'
   name: 'gcr.io/${PROJECT_ID}/pack:latest'
-  dir: '${_SAMPLE_DIR}'
+  dir: 'job/'
   args: ['build', '--builder', 'gcr.io/buildpacks/builder:v1', 'gcr.io/${PROJECT_ID}/${_IMAGE}:latest']
 
 - id: 'Push Container Image to Container Registry'
