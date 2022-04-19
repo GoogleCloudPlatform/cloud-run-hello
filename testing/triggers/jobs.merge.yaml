@@ -1,0 +1,9 @@
+name: jobs-merge
+filename: testing/jobs.merge.cloudbuild.yaml
+github:
+  name: cloud-run-hello
+  owner: GoogleCloudPlatform
+  push:
+    branch: ^master$
+includedFiles:
+- jobs/**

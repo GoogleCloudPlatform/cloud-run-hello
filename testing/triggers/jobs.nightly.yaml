@@ -1,0 +1,10 @@
+name: jobs-nightly
+gitFileSource:
+  path: testing/jobs.nightly.cloudbuild.yaml
+  repoType: GITHUB
+  revision: refs/heads/master
+  uri: https://github.com/GoogleCloudPlatform/cloud-run-hello
+sourceToBuild:
+  ref: refs/heads/master
+  repoType: GITHUB
+  uri: https://github.com/GoogleCloudPlatform/cloud-run-hello
