@@ -16,7 +16,7 @@ steps:
 
 - id: 'Lint'
   name: 'golang:1.18-alpine'
-  dir: '${_SAMPLE_DIR}'
+  dir: 'job/'
   entrypoint: /bin/sh
   args: 
   - '-c'
@@ -29,12 +29,12 @@ steps:
 
 - id: 'Unit Tests'
   name: 'golang:1.18-alpine'
-  dir: '${_SAMPLE_DIR}'
+  dir: 'job/'
   args: ['test', '-v']
 
 - id: 'Build Container Image'
   name: 'gcr.io/${PROJECT_ID}/pack:latest'
-  dir: '${_SAMPLE_DIR}'
+  dir: 'job/'
   args: ['build', '--builder', 'gcr.io/buildpacks/builder:v1', 'gcr.io/${PROJECT_ID}/${_IMAGE}:${SHORT_SHA}'] # Tag docker image with git commit sha
 
 - id: 'Push Container Image to Container Registry'
@@ -91,6 +91,5 @@ steps:
 
 substitutions:
   _IMAGE: job-pr
-  _SAMPLE_DIR: jobs
   _REGION: us-central1
   _CLOUDSDK_VERSION: latest
