@@ -30,4 +30,4 @@ COPY placeholder.html ./index.html
 COPY assets/ ./assets/
 
 # Run the web service on container startup.
-CMD ["/server"]
+ENTRYPOINT ["/server"]
