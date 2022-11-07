@@ -1,0 +1,16 @@
+name: OralB Command Center Stage
+
+on:
+  pull_request:
+    types: [opened]
+    # paths:
+    #   - 'services/command-center/**'
+
+jobs:
+  build_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and push docker
+        # working-directory: ./services/command-center
+        run: |
+          docker build -f Dockerfile .
