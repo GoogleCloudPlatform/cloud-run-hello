@@ -1,204 +1,103 @@
-<!doctype html>
-<html lang=en>
-<head>
-<meta charset=utf-8>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Congratulations | Cloud Run</title>
-<link href="https://fonts.googleapis.com/css?family=Roboto" rel="preload" as="font">
-<link
-  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsSAAALEgHS3X78AAAB5klEQVRYha2XMVLDMBBFPxl6qCjciBskNzA3AE5AqrTQuaVVR1pX4QSYGyQ3SGqGATcu3JBUlGGUiTPyeiWvZH6TsSTLb/+XN8nZfr+H0lUBYAvgucySbzBSupoCmJRZ8sTNx2p0vG8J4AHAl9LVQunqmtnPQD4qXa0d81GyARo1IC/2hmWWGIfeAYwBGIi7fwMos2QNYEfmTLWXZKw4fl4AeKOQQxwAcaERrbIg14MjCQKwYrA1KJI+gBtmjLqAIZEcXsNGSlfb42a27sssKaw15lz8ePbcGOdcrzPViFz3uuCIwVZQJBIAbiMuBlviSCQASulqEgjQqPctaQE4+gEiYrDljYQ6AIcLU2ZM6gJ8kUgBxp6uGKJOJFIACJuSRK1IOgCecxDzNrh0iuScW/D7+eG4LxGuk6sDcDVbTZhuCEe1sV/JxuFpnacF5wDX/zsAV7OVOZS3EQ8/tOo6Tw+tWgqwqfN0S8Ziqp/Xedr6SScFWDBjIQAny+lEC8CT/5KsC7G/ZbkXwFF9WefpmoxJq+9YHgMQc/qdlscAhNrvtdwJ4Mh/x1Thq77XcieApHoPgNjyUABJ8wmyfBAAU32w5SyAI/+5p/tFW84CkOpfzb9kaqll/yDLfQDsgy2Z6gdb3hKAP2n+6m+fxBVHAAAAAElFTkSuQmCC"
-  rel="icon" 
-  type="image/png" 
-/>
-<style>
- body {
-	font-family: 'Roboto', sans-serif;
-	font-display: fallback;
-	background: url('/assets/cloud_bg.svg');
-	background-size: cover;
-	background-position: center;
-	line-height: 1.6;
- }
-
-h1 {
-	font-size: 24px;
-	font-weight: bold;
-	margin-bottom: 0px;
-}
-
-.congrats {
-	font-size: 18px;
-	font-weight: normal;
-	margin-top: 4px;
-}
-
-h3 {
-	font-size: 20px;
-	margin-bottom: 0px;
-}
-
-.next {
-    font-size: 15px;
-	margin-top: 8px;
-	margin-bottom: 8px;
-}
-
-.container {
-	max-width: 700px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.hero {
-	margin-top: 172px;
-}
-
-.hero .logo {
-	width: 140px;
-	float: left;
-	margin-right: 32px;
-}
-
-.hero .message {
-	font-size: 15px;
-	text-align: center;
-	margin-bottom: 24px;
-}
-
-.details {
-	clear: both;
-	height: 400px;
-	line-height: 1.8;
-}
-
-.callout {
-	font-size: 14px;
-	color: #1967D2;
-	font-weight: 600;
-	padding: 16px 24px 16px 40px;
-	background: url('/assets/lightbulb_icon.svg') #E8F0FE ;
-	background-position: 16px 16px;
-	background-repeat: no-repeat;
-	line-height: 1.6;
-}
-
-code {
-	font-family: 'Roboto Mono', Courier, monospace;
-	color: #A30038;
-	background-color: #F8F8F8;
-	border: 1px solid #DDD;
-	border-radius: 2px;
-	padding: 0 6px;
-	font-weight: 500;
-}
-
-.cta a {
-	background-color:rgba(233, 233, 233, 0.9);
-	color: rgb(14, 14, 14);
-	text-decoration: none;
-	padding: 8px 12px;
-	margin-top: 8px;
-	margin-right: 4px;
-	min-height: 36px;
-	border-radius: 2px;
-	font-weight: 600;
-}
-
-.cta a:hover {
-	background-color:rgba(213, 213, 213, 0.9);
-}
-
-.cta a.primary {
-	color: white;
-	background-color: rgb(14, 101, 241);
-}
-
-.cta a.primary:hover {
-    background-color: rgb(66, 133, 244, 0.9);
-}
-
-@media (max-width: 600px) {
-    .hero .logo {
-        float: initial;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecy</title>
+  </head>
+  <style>
+    :root {
+      --bg-color: #15181e;
+      --font-base: aliceblue;
+      --code-base: fuchsia;
+      --callout: lime;
+      --pre-base: #303235;
     }
-
-	.container {
-        margin-top: 0;
-	}
-
-    .hero {
-        margin-top: 0;
-        margin-bottom: 24px;
-	}
-}
-@media (prefers-color-scheme: dark) {
+    html,
     body {
-        background: black url('/assets/dark_bg.svg');
-        color:white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 16px;
+      background-color: var(--bg-color);
+      color: var(--font-base);
     }
-}
 
-</style>
-</head>
+    header {
+      text-align: center;
+    }
 
-<body>
-	<div class="container">
-		<div class="hero">
-			<div style="text-align:center;">
-				<picture>
-					<source srcset="/assets/celebration-dark.svg" alt="A group celebrating" media="(prefers-color-scheme: dark)">
-					<img src="/assets/celebration.svg" alt="A group celebrating" width="427" height="231">
-				</picture>
-			</div>
+    section {
+      padding: 1.2em 0 0 0;
+    }
 
-			<div class="message">
-				<h1>It's running!</h1>
-				<div class="congrats">Congratulations, you successfully deployed a container image to Cloud Run</div>
-			</div>
-		</div>
+    .logo {
+      width: 100px;
+      height: 100px;
+    }
 
-		<div class="details">
-			<p>
-				{{ if and .Project (and .Region .Service)  }}
-					This created the revision <code>{{.Revision}}</code> of the Cloud Run service <code>{{.Service}}</code>
-					{{if .Region}} in <code>{{.Region}}</code>{{end}}
-					{{if .Project}} in the GCP project <code>{{.Project}}</code>{{end}}.
-				{{ else }}
-					This container <strong>does not</strong> seem to be running
-					on Cloud Run.
-				{{ end }}
-			</p>
+    code {
+      color: var(--code-base);
+    }
 
-			{{ with .AuthenticatedEmail }}
-				<p>
-					You are authenticated as
-					<code>{{.}}</code>.
-				</p>
-			{{ end }}
+    .callout {
+      color: var(--callout);
+    }
 
-			<p class="callout">
-				You can deploy any container to Cloud Run that listens for HTTP requests on the port defined by the
-				<code>PORT</code> environment variable.
-				Cloud Run will scale automatically based on requests and you never have to worry about
-				infrastructure.
-			</p>
+    pre {
+      background-color: #15181e;
+      padding: 10px;
+      color: var(--code-base);
+    }
+    input {
+      background-color: #26282e;
+      border: none;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      border-radius: 12px;
+    }
 
-			<h3>What's next?</h3>
-			<p class="next">Follow the Quickstart tutorial to build a “Hello World” application in your favorite
-				language into
-				a container image, and then deploy it to Cloud Run.</p>
-			<p class="cta">
-				<a class="primary" href="https://cloud.google.com/run/docs/quickstarts/build-and-deploy" target="_blank" rel="noopener">
-					BUILD AND DEPLOY QUICKSTART</a>
-				{{ if and .Project (and .Region .Service)  }}
-				<a href="https://console.cloud.google.com/run/detail/{{.Region}}/{{.Service}}/metrics?project={{.Project}}" target="_blank" rel="noopener">
-					VIEW IN CLOUD CONSOLE</a>
-				{{ end }}
-			</p>
-		</div>
-	</div>
-</body>
+    .button {
+      background-color: #202229;
+      border: none;
+      color: rgb(255, 255, 255);
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 12px;
+    }
+  </style>
+  <body>
+    <header>
+      <h1>Redirecy</h1>
+    </header>
+    <article>
+      <h2>Get started!</h2>
+      <input
+        id="shorten_url"
+        class="shorten-input"
+        autocomplete="off"
+        name="url"
+        type="text"
+        value=""
+        placeholder="Enter your link"
+      />
+      <br />
+      <br />
+      <input
+        id="shorten_btn"
+        class="button button-primary button-large shorten-button"
+        type="submit"
+        value="Make Link"
+      />
+    </article>
+  </body>
 </html>
