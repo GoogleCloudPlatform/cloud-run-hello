@@ -9,4 +9,6 @@ It also contains the source code of a placeholder public container
 (`gcr.io/cloudrun/placeholder`)  used to create a placeholder revision when setting up 
 Continuous Deployment.
 
+Set a `COLOR` environment variable to a valid CSS color to change the background color.
+
 [![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)

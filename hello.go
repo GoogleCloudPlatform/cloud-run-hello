@@ -36,6 +36,7 @@ type Data struct {
 	Project            string
 	Region             string
 	AuthenticatedEmail string
+	Color              string
 }
 
 func handleReceivedEvent(ctx context.Context, event cloudevents.Event) {
@@ -150,11 +151,14 @@ func main() {
 	service := os.Getenv("K_SERVICE")
 	revision := os.Getenv("K_REVISION")
 
+	color := os.Getenv("COLOR")
+
 	data := Data{
 		Service:  service,
 		Revision: revision,
 		Project:  project,
 		Region:   region,
+		Color:    color,
 	}
 
 	eventsHandler := getEventsHandler()
