@@ -1,0 +1,68 @@
+# Copyright 2022 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+steps:
+
+- id: 'Deploy to Cloud Run'
+  name: 'gcr.io/cloud-builders/gcloud:$_CLOUDSDK_VERSION'
+  entrypoint: /bin/bash
+  args:
+  - '-c'
+  - |
+    gcloud components install alpha --quiet
+    
+    gcloud alpha run jobs create ${_IMAGE}-${BUILD_ID} \
+      --image gcr.io/${PROJECT_ID}/${_IMAGE}:latest \
+      --project ${PROJECT_ID} \
+      --region ${_REGION} \
+      --tasks 2 \
+      --set-env-vars=SLEEP_MS=1000 \
+      --max-retries 0 \
+      --wait
+
+- id: 'Check Job Logs'
+  name: 'gcr.io/cloud-builders/gcloud:$_CLOUDSDK_VERSION'
+  entrypoint: /bin/bash
+  args:
+  - '-c'
+  - |
+    output=$(gcloud logging read \
+      "resource.type=cloud_run_job \
+      AND resource.labels.job_name=${_IMAGE}-${BUILD_ID} \
+      AND resource.labels.location=${_REGION} \
+      AND Task #" \
+      --limit 10 --format 'value(textPayload)')
+    echo $output
+
+    if [[ $output ]]; then
+      echo "Logs Found."
+    else
+      exit 1
+    fi
+
+- id: 'Teardown'
+  name: 'gcr.io/cloud-builders/gcloud:$_CLOUDSDK_VERSION'
+  entrypoint: '/bin/bash'
+  args:
+  - '-c'
+  - |
+    set -x
+    gcloud --quiet alpha run jobs delete ${_IMAGE}-${BUILD_ID} --region ${_REGION}
+    set +x
+
+substitutions:
+  _IMAGE: job
+  _REGION: us-central1
+  _REPO: container
+  _CLOUDSDK_VERSION: latest

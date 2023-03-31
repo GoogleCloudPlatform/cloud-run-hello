@@ -1,0 +1,38 @@
+# Copyright 2022 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+steps:
+
+- id: 'Build Container Image'
+  name: 'gcr.io/${PROJECT_ID}/pack:latest'
+  dir: 'job/'
+  args: ['build', '--builder', 'gcr.io/buildpacks/builder:v1', 'gcr.io/${PROJECT_ID}/${_IMAGE}:latest']
+
+- id: 'Push Container Image to Container Registry'
+  name: 'gcr.io/cloud-builders/docker:latest'
+  args: ['push', 'gcr.io/${PROJECT_ID}/${_IMAGE}:latest']
+
+- id: 'Tag Container Image for Artifact Registry'
+  name: 'gcr.io/cloud-builders/docker:latest'
+  args: ['tag', 'gcr.io/${PROJECT_ID}/${_IMAGE}:latest', '${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest']
+
+- id: 'Push Container Image to Artifact Registry'
+  name: 'gcr.io/cloud-builders/docker:latest'
+  args: ['push', '${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest']
+
+substitutions:
+  _IMAGE: job
+  _LOCATION: us
+  _REPO: container
+  _CLOUDSDK_VERSION: latest
