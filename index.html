@@ -14,7 +14,7 @@
  body {
 	font-family: 'Roboto', sans-serif;
 	font-display: fallback;
-	{{ if and .Color  }}
+	{{ if .Color  }}
 	background-color: {{ .Color  }};
 	{{ else }}
 	background: url('/assets/cloud_bg.svg');
