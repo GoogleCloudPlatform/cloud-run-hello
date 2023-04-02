@@ -173,6 +173,10 @@ func main() {
 		tmpl.Execute(w, data)
 	})
 
+	http.HandleFunc("/robots.txt", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "User-agent: *\nDisallow: /\n")
+	})
+
 	fs := http.FileServer(http.Dir("./assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
