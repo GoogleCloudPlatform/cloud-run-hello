@@ -14,7 +14,7 @@ COPY . ./
 # -mod=readonly ensures immutable go.mod and go.sum in container builds.
 RUN CGO_ENABLED=0 GOOS=linux go build -mod=readonly -v -o server
 
-# Use the official Alpine image to get the standard for a lean production container.
+# Use the official Alpine image to install certificates.
 # https://hub.docker.com/_/alpine
 FROM alpine:3 AS certs 
 RUN apk add --no-cache ca-certificates
