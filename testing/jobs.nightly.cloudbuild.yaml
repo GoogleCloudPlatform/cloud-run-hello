@@ -20,9 +20,9 @@ steps:
   args:
   - '-c'
   - |
-    gcloud components install alpha --quiet
+    gcloud components install --quiet
     
-    gcloud alpha run jobs create ${_IMAGE}-${BUILD_ID} \
+    gcloud run jobs create ${_IMAGE}-${BUILD_ID} \
       --image gcr.io/${PROJECT_ID}/${_IMAGE}:latest \
       --project ${PROJECT_ID} \
       --region ${_REGION} \
@@ -58,7 +58,7 @@ steps:
   - '-c'
   - |
     set -x
-    gcloud --quiet alpha run jobs delete ${_IMAGE}-${BUILD_ID} --region ${_REGION}
+    gcloud --quiet run jobs delete ${_IMAGE}-${BUILD_ID} --region ${_REGION}
     set +x
 
 substitutions:

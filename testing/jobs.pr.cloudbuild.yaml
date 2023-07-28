@@ -47,9 +47,9 @@ steps:
   args:
   - '-c'
   - |
-    gcloud components install alpha --quiet
+    gcloud components install --quiet
     
-    gcloud alpha run jobs create ${_IMAGE}-${SHORT_SHA} \
+    gcloud run jobs create ${_IMAGE}-${SHORT_SHA} \
       --image gcr.io/${PROJECT_ID}/${_IMAGE}:${SHORT_SHA} \
       --project ${PROJECT_ID} \
       --region ${_REGION} \
@@ -86,7 +86,7 @@ steps:
   - |
     set -x
     gcloud --quiet container images delete gcr.io/${PROJECT_ID}/${_IMAGE}:${SHORT_SHA} --force-delete-tags
-    gcloud --quiet alpha run jobs delete ${_IMAGE}-${SHORT_SHA} --region ${_REGION}
+    gcloud --quiet run jobs delete ${_IMAGE}-${SHORT_SHA} --region ${_REGION}
     set +x
 
 substitutions:
