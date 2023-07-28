@@ -36,3 +36,7 @@ substitutions:
   _LOCATION: us
   _REPO: container
   _CLOUDSDK_VERSION: latest
+
+images:
+  - 'gcr.io/${PROJECT_ID}/${_IMAGE}:latest'
+  - '${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest'
