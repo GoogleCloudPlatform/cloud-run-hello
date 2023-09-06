@@ -14,19 +14,12 @@ COPY . ./
 # -mod=readonly ensures immutable go.mod and go.sum in container builds.
 RUN CGO_ENABLED=0 GOOS=linux go build -mod=readonly -v -o server
 
-# Use the official Alpine image to install certificates.
-# https://hub.docker.com/_/alpine
-FROM alpine:3 AS certs 
-RUN apk add --no-cache ca-certificates
-
-# Build the runtime container image from scratch, copying what is needed from the two previous stages.  
+# Build the runtime container image from scratch, copying what is needed from the previous stage.  
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
 FROM scratch
 # Copy the binary to the production image from the builder stage.
 COPY --from=builder /app/server /server
 COPY index.html ./index.html
 COPY assets/ ./assets/
-# Copy the root certificates from the certs stage
-COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 # Run the web service on container startup.
 ENTRYPOINT ["/server"]
