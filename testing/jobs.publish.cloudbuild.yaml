@@ -1,0 +1,47 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Publishes the hello-job sample image to Artifact Registry.
+steps:
+
+# Build the image once.
+- id: 'Build Container Image'
+  name: 'gcr.io/k8s-skaffold/pack:latest'
+  dir: 'job/'
+  script: |
+    pack build --builder "gcr.io/buildpacks/builder:google-22" "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest"
+
+# Support commonly used variants of the image tag.
+- id: 'Tag Container Image Aliases'
+  name: 'gcr.io/cloud-builders/docker:latest'
+  script: |
+    docker tag "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest" "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE_ALIAS}:latest"
+    docker tag "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest" "gcr.io/${PROJECT_ID}/${_IMAGE_ALIAS}:latest"
+
+images:
+  # Push image with Cloud Build context.
+  - "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest"
+  - "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE_ALIAS}:latest"
+  - "gcr.io/${PROJECT_ID}/${_IMAGE_ALIAS}:latest"
+
+substitutions:
+  _IMAGE: hello-job
+  _IMAGE_ALIAS: job
+  _LOCATION: us
+  _REPO: container
+
+options:
+  # Automatically make substitutions available as environment variables to scripts.
+  # https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values#mapping_substitutions_to_environment_variables
+  automapSubstitutions: true
