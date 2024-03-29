@@ -12,6 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+#
+# This configuration is deprecated by job/publish.cloudbuild.yaml.
+# It is retained for cutover purposes and will be deleted.
+#
+
 steps:
 
 - id: 'Build Container Image'

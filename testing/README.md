@@ -4,7 +4,7 @@ A Google Cloud Project is required in order to run the tests in the Cloud Run Sa
 
 * Cloud Run
 * Cloud Build
-* Container Registry
+* Artifact Registry
 
 ## Test Project Setup
 
@@ -20,13 +20,13 @@ A Google Cloud Project is required in order to run the tests in the Cloud Run Sa
 Each sample has Cloud Build triggers:
 
 * A **Pull Request trigger** which checks incoming changes.
-* A **Merge trigger** which builds and pushes new container images.
+* A **Publish trigger** which builds and pushes new container images.
 * A **Nightly trigger** which checks the affects of product changes, environment changes, and flakiness.
 
 The trigger configs are defined in `testing/triggers` and can be imported via:
 
 ```sh
-gcloud beta builds triggers import --source=testing/triggers/jobs.<TYPE>.yaml
+gcloud builds triggers import --source=testing/triggers/jobs.<TYPE>.yaml
 ```
 
 ## Manually Start Cloud Builds
@@ -38,9 +38,3 @@ gcloud builds submit \
   --config "testing/$SAMPLE.pr.cloudbuild.yaml" \
   --substitutions "SHORT_SHA=manual"
 ```
-
-## Manually Provide Pack CLI Cloud Builders
-
-Follow [instructions][pack] for creating your own Cloud Builder with the `pack` CLI.
-
-[pack]: https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/pack
