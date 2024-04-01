@@ -1,11 +1,18 @@
-name: jobs-pr
-description: "Build and deploy a test job"
+createTime: '2022-04-15T00:03:19.350111928Z'
+description: 'Job: Build, Unit Test, and E2E Test on Pull Request'
 filename: testing/jobs.pr.cloudbuild.yaml
 github:
   name: cloud-run-hello
   owner: GoogleCloudPlatform
   pullRequest:
-    branch: ^master$
+    branch: master
     commentControl: COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY
+id: 8a2892ff-c44d-4178-85a4-4248d97f1d71
 includedFiles:
 - jobs/**
+- testing/jobs.pr.cloudbuild.yaml
+name: jobs-pr
+resourceName: projects/cloudrun/locations/global/triggers/8a2892ff-c44d-4178-85a4-4248d97f1d71
+tags:
+- image:job
+- type:testing
