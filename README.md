@@ -1,14 +1,30 @@
-# Cloud Run "Hello" container
+# Cloud Run "Hello" container images
 
-This repository contains the source code of a sample Go application that is
-distributed as the public container image (`us-docker.pkg.dev/cloudrun/container/hello`) used in the
-[Cloud Run quickstart](https://cloud.google.com/run/docs/quickstarts/deploy-container) and as
-the suggested container image  in the Cloud Run UI on Cloud Console.
+This repository contains the source code of multiple sample applications.
 
-It also contains the source code of a placeholder public container
-(`us-docker.pkg.dev/cloudrun/container/placeholder`) used to create a placeholder revision when setting up 
-[Continuous Deployment](https://cloud.google.com/run/docs/continuous-deployment-with-cloud-build).
+## Hello service
 
-Set a `COLOR` environment variable to a valid CSS color to change the background color.
+A sample service implemented in Go and distributed as a public container image. It is used in the [Cloud Run quickstart](https://cloud.google.com/run/docs/quickstarts/deploy-container) and is a suggested container image in the Cloud Run UI on Cloud Console.
 
-[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
+<a href="https://deploy.cloud.run?dir=service"><img src="https://deploy.cloud.run/button.svg" alt="Run on Google Cloud" height="40"/></a>
+
+* **Container Image:** `us-docker.pkg.dev/cloudrun/container/hello`
+* **Source Code:** [service/](service/)
+
+### Configuration Options
+
+Set the `COLOR` environment variable to a valid CSS color to change the background color.
+
+## Hello job
+
+A sample job implemented in Go and distributed as a public container image. It is used in the [Cloud Run quickstart](https://cloud.google.com/run/docs/quickstarts/jobs/create-execute) and is a suggested container image in the Cloud Run UI on Cloud Console.
+
+* **Container Image:** `us-docker.pkg.dev/cloudrun/container/hello-job`
+* **Source Code:** [job/](job/)
+
+## Placeholder service
+
+A sample service implemented in Go and distributed as a public container image. It is used to create a placeholder revision when setting up [Continuous Deployment](https://cloud.google.com/run/docs/continuous-deployment-with-cloud-build).
+
+* **Container Image:** `us-docker.pkg.dev/cloudrun/container/placeholder`
+* **Source Code:** [service/](service/)
