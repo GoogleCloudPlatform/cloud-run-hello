@@ -1,6 +1,6 @@
 # Testing for Cloud Run Samples
 
-A Google Cloud Project is required in order to run the tests in the Cloud Run Samples. The project should have the following API's enabled:
+A Google Cloud Project is required in order to run the tests in the Cloud Run Samples. The project should have the following APIs enabled:
 
 * Cloud Run
 * Cloud Build
@@ -19,14 +19,21 @@ A Google Cloud Project is required in order to run the tests in the Cloud Run Sa
 
 Each sample has Cloud Build triggers:
 
-* A **Pull Request trigger** which checks incoming changes.
-* A **Publish trigger** which builds and pushes new container images.
-* A **Nightly trigger** which checks the affects of product changes, environment changes, and flakiness.
+* A **Pull Request trigger** [pr] which checks incoming changes.
+* A **Publish trigger** [publish] which builds and pushes new container images.
+* A **Nightly trigger** [nightly] which checks the affects of product changes, environment changes, and flakiness.
 
 The trigger configs are defined in `testing/triggers` and can be imported via:
 
 ```sh
-gcloud builds triggers import --source=testing/triggers/jobs.<TYPE>.yaml
+gcloud builds triggers import --source testing/triggers/jobs.{TYPE}.yaml
+```
+
+These triggers are created or updated via:
+
+```sh
+gcloud beta builds triggers export jobs-{TYPE} \
+  --destination testing/triggers/jobs.{TYPE}.yaml
 ```
 
 ## Manually Start Cloud Builds
