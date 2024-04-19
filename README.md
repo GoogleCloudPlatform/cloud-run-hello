@@ -1,4 +1,4 @@
-# Cloud Run "Hello" container images
+# Cloud Run "Hello" container source code
 
 This repository contains the source code of multiple sample applications.
 
