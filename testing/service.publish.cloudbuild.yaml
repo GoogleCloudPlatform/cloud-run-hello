@@ -12,34 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Publishes the Hello job sample image to Artifact Registry.
+# Publishes the Hello service sample image to Artifact Registry.
 steps:
 
 # Build the image once.
 - id: 'Build Container Image'
-  name: 'gcr.io/k8s-skaffold/pack:latest'
-  dir: 'job/'
+  name: 'gcr.io/cloud-builders/docker:latest'
   script: |
     set -x
-    pack build --builder "gcr.io/buildpacks/builder:google-22" "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest"
+    docker build . -t "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest"
 
 # Support commonly used variants of the image tag.
 - id: 'Tag Container Image Aliases'
   name: 'gcr.io/cloud-builders/docker:latest'
   script: |
     set -x
-    docker tag "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest" "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE_ALIAS}:latest"
-    docker tag "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest" "gcr.io/${PROJECT_ID}/${_IMAGE_ALIAS}:latest"
+    docker tag "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest" "gcr.io/${PROJECT_ID}/${_IMAGE}:latest"
 
 images:
   # Push image with Cloud Build context.
   - "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest"
-  - "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE_ALIAS}:latest"
-  - "gcr.io/${PROJECT_ID}/${_IMAGE_ALIAS}:latest"
+  - "gcr.io/${PROJECT_ID}/${_IMAGE}:latest"
 
 substitutions:
-  _IMAGE: hello-job
-  _IMAGE_ALIAS: job
+  _IMAGE: hello
   _LOCATION: us
   _REPO: container
 
