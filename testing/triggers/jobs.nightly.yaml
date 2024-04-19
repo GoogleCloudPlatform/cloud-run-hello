@@ -1,10 +1,17 @@
-name: jobs-nightly
+createTime: '2022-04-15T19:44:48.397816366Z'
+description: 'Job: End-to-end test of the latest build on a schedule'
 gitFileSource:
   path: testing/jobs.nightly.cloudbuild.yaml
   repoType: GITHUB
   revision: refs/heads/master
   uri: https://github.com/GoogleCloudPlatform/cloud-run-hello
+id: 2b0a42a5-60ea-4758-af7e-4511228bf68f
+name: jobs-nightly
+resourceName: projects/cloudrun/locations/global/triggers/2b0a42a5-60ea-4758-af7e-4511228bf68f
 sourceToBuild:
   ref: refs/heads/master
   repoType: GITHUB
   uri: https://github.com/GoogleCloudPlatform/cloud-run-hello
+tags:
+- image:job
+- type:testing

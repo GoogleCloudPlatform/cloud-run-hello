@@ -1,0 +1,17 @@
+createTime: '2024-03-18T19:58:54.437111051Z'
+description: 'Job: Build and push container image to GCR and GAR'
+gitFileSource:
+  path: testing/jobs.publish.cloudbuild.yaml
+  repoType: GITHUB
+  revision: refs/heads/master
+  uri: https://github.com/GoogleCloudPlatform/cloud-run-hello
+id: 234c41f5-9714-4617-b513-2db8686b71d2
+name: jobs-publish
+resourceName: projects/cloudrun/locations/global/triggers/234c41f5-9714-4617-b513-2db8686b71d2
+sourceToBuild:
+  ref: refs/heads/master
+  repoType: GITHUB
+  uri: https://github.com/GoogleCloudPlatform/cloud-run-hello
+tags:
+- image:job
+- type:publish
