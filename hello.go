@@ -20,7 +20,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -108,7 +108,7 @@ func main() {
 	if err == nil {
 		defer res.Body.Close()
 		if res.StatusCode == 200 {
-			responseBody, err := ioutil.ReadAll(res.Body)
+			responseBody, err := io.ReadAll(res.Body)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -124,7 +124,7 @@ func main() {
 	if err == nil {
 		defer res.Body.Close()
 		if res.StatusCode == 200 {
-			responseBody, err := ioutil.ReadAll(res.Body)
+			responseBody, err := io.ReadAll(res.Body)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -139,7 +139,7 @@ func main() {
 		if err == nil {
 			defer res.Body.Close()
 			if res.StatusCode == 200 {
-				responseBody, err := ioutil.ReadAll(res.Body)
+				responseBody, err := io.ReadAll(res.Body)
 				if err != nil {
 					log.Fatal(err)
 				}
