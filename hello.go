@@ -20,12 +20,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
-	"regexp"
 
+	"cloud.google.com/go/compute/metadata"
 	cloudevents "github.com/cloudevents/sdk-go/v2"
 	cloudeventsClient "github.com/cloudevents/sdk-go/v2/client"
 )
@@ -34,7 +33,7 @@ type Data struct {
 	Service            string
 	Revision           string
 	Project            string
-	Region             string
+	Zone               string
 	AuthenticatedEmail string
 	Color              string
 }
@@ -97,56 +96,15 @@ func getEventsHandler() *cloudeventsClient.EventReceiver {
 }
 
 func main() {
+	ctx := context.Background()
+
 	tmpl := template.Must(template.ParseFiles("index.html"))
 
 	// Get project ID from metadata server
-	project := ""
-	client := &http.Client{}
-	req, _ := http.NewRequest("GET", "http://metadata.google.internal/computeMetadata/v1/project/project-id", nil)
-	req.Header.Set("Metadata-Flavor", "Google")
-	res, err := client.Do(req)
-	if err == nil {
-		defer res.Body.Close()
-		if res.StatusCode == 200 {
-			responseBody, err := ioutil.ReadAll(res.Body)
-			if err != nil {
-				log.Fatal(err)
-			}
-			project = string(responseBody)
-		}
-	}
+	project, _ := metadata.ProjectIDWithContext(ctx)
 
-	// Get region from metadata server
-	region := ""
-	req, _ = http.NewRequest("GET", "http://metadata.google.internal/computeMetadata/v1/instance/region", nil)
-	req.Header.Set("Metadata-Flavor", "Google")
-	res, err = client.Do(req)
-	if err == nil {
-		defer res.Body.Close()
-		if res.StatusCode == 200 {
-			responseBody, err := ioutil.ReadAll(res.Body)
-			if err != nil {
-				log.Fatal(err)
-			}
-			region = regexp.MustCompile(`projects/[^/]*/regions/`).ReplaceAllString(string(responseBody), "")
-		}
-	}
-	if region == "" {
-		// Fallback: get "zone" from metadata server (running on VM e.g. Cloud Run for Anthos)
-		req, _ = http.NewRequest("GET", "http://metadata.google.internal/computeMetadata/v1/instance/zone", nil)
-		req.Header.Set("Metadata-Flavor", "Google")
-		res, err = client.Do(req)
-		if err == nil {
-			defer res.Body.Close()
-			if res.StatusCode == 200 {
-				responseBody, err := ioutil.ReadAll(res.Body)
-				if err != nil {
-					log.Fatal(err)
-				}
-				region = regexp.MustCompile(`projects/[^/]*/zones/`).ReplaceAllString(string(responseBody), "")
-			}
-		}
-	}
+	// Get zone from metadata server
+	zone, _ := metadata.ZoneWithContext(ctx)
 
 	service := os.Getenv("K_SERVICE")
 	revision := os.Getenv("K_REVISION")
@@ -157,7 +115,7 @@ func main() {
 		Service:  service,
 		Revision: revision,
 		Project:  project,
-		Region:   region,
+		Zone:     zone,
 		Color:    color,
 	}
 
