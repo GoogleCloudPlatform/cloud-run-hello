@@ -185,6 +185,6 @@ func main() {
 		port = "8080"
 	}
 
-	log.Print("Hello from Cloud Run! The container started successfully and is listening for HTTP requests on $PORT")
+	log.Println("Hello from Cloud Run! The container started successfully and is listening for HTTP requests on port", port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
 }
