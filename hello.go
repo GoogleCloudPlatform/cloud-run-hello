@@ -20,7 +20,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -97,7 +97,7 @@ func getEventsHandler() *cloudeventsClient.EventReceiver {
 }
 
 func main() {
-	tmpl := template.Must(template.ParseFiles("index.html"))
+	tmpl := template.Must(template.ParseFiles("/index.html"))
 
 	// Get project ID from metadata server
 	project := ""
@@ -108,7 +108,7 @@ func main() {
 	if err == nil {
 		defer res.Body.Close()
 		if res.StatusCode == 200 {
-			responseBody, err := ioutil.ReadAll(res.Body)
+			responseBody, err := io.ReadAll(res.Body)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -124,7 +124,7 @@ func main() {
 	if err == nil {
 		defer res.Body.Close()
 		if res.StatusCode == 200 {
-			responseBody, err := ioutil.ReadAll(res.Body)
+			responseBody, err := io.ReadAll(res.Body)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -139,7 +139,7 @@ func main() {
 		if err == nil {
 			defer res.Body.Close()
 			if res.StatusCode == 200 {
-				responseBody, err := ioutil.ReadAll(res.Body)
+				responseBody, err := io.ReadAll(res.Body)
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -177,7 +177,7 @@ func main() {
 		fmt.Fprintf(w, "User-agent: *\nDisallow: /\n")
 	})
 
-	fs := http.FileServer(http.Dir("./assets"))
+	fs := http.FileServer(http.Dir("/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
 	port := os.Getenv("PORT")
