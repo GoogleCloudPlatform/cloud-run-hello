@@ -186,6 +186,6 @@ func main() {
 	}
 	address := fmt.Sprintf(":%s", port)
 
-	log.Printf("Hello from Cloud Run! The container started successfully and is listening for HTTP requests on %s", port)
+	log.Printf("Hello from Cloud Run! The container started successfully and is listening for HTTP requests on port %s", port)
 	log.Fatal(http.ListenAndServe(address, nil))
 }
