@@ -97,7 +97,7 @@ func getEventsHandler() *cloudeventsClient.EventReceiver {
 }
 
 func main() {
-	tmpl := template.Must(template.ParseFiles("/index.html"))
+	tmpl := template.Must(template.ParseFiles("index.html"))
 
 	// Get project ID from metadata server
 	project := ""
