@@ -177,7 +177,7 @@ func main() {
 		fmt.Fprintf(w, "User-agent: *\nDisallow: /\n")
 	})
 
-	fs := http.FileServer(http.Dir("./assets"))
+	fs := http.FileServer(http.Dir("/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
 	port := os.Getenv("PORT")
