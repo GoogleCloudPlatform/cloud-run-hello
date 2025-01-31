@@ -12,7 +12,7 @@ A sample service implemented in Go and distributed as a public container image. 
 
 Set the `COLOR` environment variable to a valid CSS color to change the background color.
 
-<a href="https://deploy.cloud.run?dir=service"><img src="https://deploy.cloud.run/button.svg" alt="Run on Google Cloud" height="40"/></a>
+<a href="https://deploy.cloud.run"><img src="https://deploy.cloud.run/button.svg" alt="Run on Google Cloud" height="40"/></a>
 
 ## Hello job
 
