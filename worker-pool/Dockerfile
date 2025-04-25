@@ -12,7 +12,7 @@ RUN go mod download
 COPY . ./
 # Build the binary.
 # -mod=readonly ensures immutable go.mod and go.sum in container builds.
-RUN CGO_ENABLED=0 GOOS=linux go build -mod=readonly -v -o server
+RUN CGO_ENABLED=0 GOOS=linux go build -mod=readonly -v -o worker
 
 # Build the runtime container image from scratch, copying what is needed from the previous stage.  
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
@@ -20,6 +20,6 @@ FROM scratch
 # Create and change to the workspace directory.
 WORKDIR /workspace
 # Copy the binary to the production image from the builder stage.
-COPY --from=builder /app/server /server
+COPY --from=builder /app/worker /worker
 # Run the web service on container startup.
-ENTRYPOINT ["/server"]
+ENTRYPOINT ["/worker"]

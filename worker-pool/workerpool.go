@@ -34,7 +34,7 @@ func main() {
 	// Output until interrupt signal
 	go func() {
 		for {
-			fmt.Println("Cloud Run Worker Pool is running!")
+			fmt.Println("Cloud Run Worker Pool instance is running!")
 			time.Sleep(60 * time.Second)
 		}
 	}()
@@ -46,7 +46,7 @@ func main() {
 	// Add extra handling here to clean up resources, such as flushing logs and
 	// closing any database or Redis connections.
 
-	log.Print("Worker Pool exited")
+	log.Print("Worker Pool instance exited")
 
 }
 
