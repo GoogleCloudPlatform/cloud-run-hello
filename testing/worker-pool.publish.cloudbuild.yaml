@@ -18,6 +18,7 @@ steps:
 # Build the image once.
 - id: 'Build Container Image'
   name: 'gcr.io/cloud-builders/docker:latest'
+  dir: 'worker-pool/'
   script: |
     set -x
     docker build . -t "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest"
