@@ -20,7 +20,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -97,7 +97,7 @@ func getEventsHandler() *cloudeventsClient.EventReceiver {
 }
 
 func main() {
-	tmpl := template.Must(template.ParseFiles("index.html"))
+	tmpl := template.Must(template.ParseFiles("./index.html"))
 
 	// Get project ID from metadata server
 	project := ""
@@ -108,7 +108,7 @@ func main() {
 	if err == nil {
 		defer res.Body.Close()
 		if res.StatusCode == 200 {
-			responseBody, err := ioutil.ReadAll(res.Body)
+			responseBody, err := io.ReadAll(res.Body)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -124,7 +124,7 @@ func main() {
 	if err == nil {
 		defer res.Body.Close()
 		if res.StatusCode == 200 {
-			responseBody, err := ioutil.ReadAll(res.Body)
+			responseBody, err := io.ReadAll(res.Body)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -139,7 +139,7 @@ func main() {
 		if err == nil {
 			defer res.Body.Close()
 			if res.StatusCode == 200 {
-				responseBody, err := ioutil.ReadAll(res.Body)
+				responseBody, err := io.ReadAll(res.Body)
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -190,7 +190,8 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
+	address := fmt.Sprintf(":%s", port)
 
-	log.Print("Hello from Cloud Run! The container started successfully and is listening for HTTP requests on $PORT")
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
+	log.Printf("Hello from Cloud Run! The container started successfully and is listening for HTTP requests on port %s", port)
+	log.Fatal(http.ListenAndServe(address, nil))
 }
