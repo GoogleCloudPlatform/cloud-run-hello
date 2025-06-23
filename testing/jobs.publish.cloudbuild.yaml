@@ -17,11 +17,11 @@ steps:
 
 # Build the image once.
 - id: 'Build Container Image'
-  name: 'gcr.io/k8s-skaffold/pack:latest'
+  name: 'gcr.io/cloud-builders/docker:latest'
   dir: 'job/'
   script: |
     set -x
-    pack build --builder "gcr.io/buildpacks/builder:google-22" "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest"
+    docker build . -t "${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}:latest"
 
 # Support commonly used variants of the image tag.
 - id: 'Tag Container Image Aliases'

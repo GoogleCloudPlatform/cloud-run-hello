@@ -33,9 +33,11 @@ steps:
   args: ['test', '-v']
 
 - id: 'Build Container Image'
-  name: 'gcr.io/${PROJECT_ID}/pack:latest'
+  name: 'gcr.io/cloud-builders/docker:latest'
   dir: 'job/'
-  args: ['build', '--builder', 'gcr.io/buildpacks/builder:google-22', 'gcr.io/${PROJECT_ID}/${_IMAGE}:${SHORT_SHA}'] # Tag docker image with git commit sha
+  script: |
+    set -x
+    docker build . -t "gcr.io/${PROJECT_ID}/${_IMAGE}:${SHORT_SHA}" # Tag docker image with git commit sha
 
 - id: 'Push Container Image to Container Registry'
   name: 'gcr.io/cloud-builders/docker:latest'
