@@ -173,6 +173,12 @@ func main() {
 		tmpl.Execute(w, data)
 	})
 
+	http.HandleFunc("/info", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		encoder := json.NewEncoder(w)
+		encoder.Encode(data)
+	})
+
 	http.HandleFunc("/robots.txt", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "User-agent: *\nDisallow: /\n")
 	})
