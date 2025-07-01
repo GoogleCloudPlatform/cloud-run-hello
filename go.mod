@@ -1,8 +1,8 @@
 module github.com/googlecloudplatform/cloud-run-hello
 
-go 1.22.5
+go 1.23.0
 
-require github.com/cloudevents/sdk-go/v2 v2.15.2
+require github.com/cloudevents/sdk-go/v2 v2.16.1
 
 require (
 	github.com/google/uuid v1.6.0 // indirect
