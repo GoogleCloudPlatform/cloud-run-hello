@@ -22,4 +22,5 @@ WORKDIR /workspace
 # Copy the binary to the production image from the builder stage.
 COPY --from=builder /app/worker /worker
 # Run the web service on container startup.
+# Configuring container entrypoint as worker 
 ENTRYPOINT ["/worker"]
