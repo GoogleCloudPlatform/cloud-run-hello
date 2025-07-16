@@ -22,4 +22,5 @@ WORKDIR /workspace
 # Copy the binary to the production image from the builder stage.
 COPY --from=builder /app/job /job
 # Run the job on container startup.
+# Setting container entrypoint as job .
 ENTRYPOINT ["/job"]
