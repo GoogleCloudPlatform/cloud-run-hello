@@ -1,0 +1,45 @@
+name: 'my pipeline'
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+
+permissions:
+  contents: 'read'
+  statuses: 'write'
+
+defaults:
+  run:
+    shell: 'bash'
+    working-directory: '.'
+
+jobs:
+  build-app:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'Checkout'
+        uses: 'actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683'
+      - name: 'Build'
+        run: 'go build -o '
+      - name: 'Test'
+        run: 'go test'
+      # https://cloud.google.com/blog/products/devops-sre/deploy-to-cloud-run-with-github-actions
+      - name: Google Auth
+        id: auth
+        uses: 'google-github-actions/auth@v0'
+        with:
+          token_format: 'access_token'
+          service_account: '${{ secrets.GCP_SA_KEY }}'
+      - name: Build, tag and push container
+        id: build-image
+        uses: docker/build-push-action@v3
+        with:
+          context: '.'
+          file: Dockerfile
+          push: true 
+
+      
