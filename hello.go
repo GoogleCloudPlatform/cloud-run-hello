@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2019-2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,18 +25,19 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"strings"
 
 	cloudevents "github.com/cloudevents/sdk-go/v2"
 	cloudeventsClient "github.com/cloudevents/sdk-go/v2/client"
 )
 
 type Data struct {
-	Service            string
-	Revision           string
-	Project            string
-	Region             string
-	AuthenticatedEmail string
-	Color              string
+	Service            string `json:"service"`
+	Revision           string `json:"revision"`
+	Project            string `json:"project"`
+	Region             string `json:"region"`
+	AuthenticatedEmail string `json:"authenticatedEmail,omitempty"`
+	Color              string `json:"color,omitempty"`
 }
 
 func handleReceivedEvent(ctx context.Context, event cloudevents.Event) {
@@ -94,6 +95,34 @@ func getEventsHandler() *cloudeventsClient.EventReceiver {
 		log.Fatalf("failed to create handler for receiving events: %s", err.Error())
 	}
 	return h
+}
+
+func determineFormat(r *http.Request) string {
+	// Check query parameter e.g. ?format=json, ?format=text, ?format=html
+	fmtParam := strings.ToLower(r.URL.Query().Get("format"))
+	switch fmtParam {
+	case "json":
+		return "json"
+	case "text", "plain":
+		return "text"
+	case "html":
+		return "html"
+	}
+
+	// Check Accept header
+	accept := strings.ToLower(r.Header.Get("Accept"))
+	if strings.Contains(accept, "application/json") {
+		return "json"
+	}
+	if strings.Contains(accept, "text/plain") {
+		return "text"
+	}
+	if strings.Contains(accept, "text/html") {
+		return "html"
+	}
+
+	// Default to html
+	return "html"
 }
 
 func main() {
@@ -170,7 +199,23 @@ func main() {
 		}
 		// Default handler (hello page).
 		data.AuthenticatedEmail = r.Header.Get("X-Goog-Authenticated-User-Email") // set when behind IAP
-		tmpl.Execute(w, data)
+		switch determineFormat(r) {
+		case "json":
+			w.Header().Set("Content-Type", "application/json; charset=utf-8")
+			json.NewEncoder(w).Encode(data)
+		case "text":
+			w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+			fmt.Fprintf(w, "Service: %s\nRevision: %s\nProject: %s\nRegion: %s\n", data.Service, data.Revision, data.Project, data.Region)
+			if data.AuthenticatedEmail != "" {
+				fmt.Fprintf(w, "AuthenticatedEmail: %s\n", data.AuthenticatedEmail)
+			}
+			if data.Color != "" {
+				fmt.Fprintf(w, "Color: %s\n", data.Color)
+			}
+		default:
+			w.Header().Set("Content-Type", "text/html; charset=utf-8")
+			tmpl.Execute(w, data)
+		}
 	})
 
 	http.HandleFunc("/robots.txt", func(w http.ResponseWriter, r *http.Request) {

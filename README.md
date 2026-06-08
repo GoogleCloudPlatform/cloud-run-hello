@@ -8,11 +8,18 @@ A sample service implemented in Go and distributed as a public container image. 
 
 * **Container Image:** `us-docker.pkg.dev/cloudrun/container/hello`
 
+<a href="https://deploy.cloud.run"><img src="https://deploy.cloud.run/button.svg" alt="Run on Google Cloud" height="40"/></a>
+
 ### Configuration Options
 
 Set the `COLOR` environment variable to a valid CSS color to change the background color.
 
-<a href="https://deploy.cloud.run"><img src="https://deploy.cloud.run/button.svg" alt="Run on Google Cloud" height="40"/></a>
+### Response Formats
+
+By default, the service returns answers in HTML format. You can also request responses in JSON or plain text format by passing a URL query parameter or an HTTP header:
+
+* **URL Query Parameter:** Add `?format=json`, `?format=text` (or `plain`), or `?format=html`.
+* **Standard Header:** Pass `Accept: application/json`, `Accept: text/plain`, or `Accept: text/html`.
 
 ## Hello job
 
