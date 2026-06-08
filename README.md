@@ -17,7 +17,6 @@ Set the `COLOR` environment variable to a valid CSS color to change the backgrou
 By default, the service returns answers in HTML format. You can also request responses in JSON or plain text format by passing a URL query parameter or an HTTP header:
 
 * **URL Query Parameter:** Add `?format=json`, `?format=text` (or `plain`), or `?format=html`.
-* **Custom Headers:** Pass `Format: json` or `X-Format: json` (and `text` / `html`).
 * **Standard Header:** Pass `Accept: application/json`, `Accept: text/plain`, or `Accept: text/html`.
 
 <a href="https://deploy.cloud.run"><img src="https://deploy.cloud.run/button.svg" alt="Run on Google Cloud" height="40"/></a>

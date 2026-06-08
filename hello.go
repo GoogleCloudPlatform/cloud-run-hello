@@ -98,7 +98,7 @@ func getEventsHandler() *cloudeventsClient.EventReceiver {
 }
 
 func determineFormat(r *http.Request) string {
-	// 1. Check query parameter e.g. ?format=json, ?format=text, ?format=html
+	// Check query parameter e.g. ?format=json, ?format=text, ?format=html
 	fmtParam := strings.ToLower(r.URL.Query().Get("format"))
 	switch fmtParam {
 	case "json":
@@ -109,20 +109,7 @@ func determineFormat(r *http.Request) string {
 		return "html"
 	}
 
-	// 2. Check custom headers e.g. Format: json or X-Format: json
-	for _, h := range []string{"Format", "X-Format"} {
-		val := strings.ToLower(r.Header.Get(h))
-		switch val {
-		case "json":
-			return "json"
-		case "text", "plain":
-			return "text"
-		case "html":
-			return "html"
-		}
-	}
-
-	// 3. Check Accept header
+	// Check Accept header
 	accept := strings.ToLower(r.Header.Get("Accept"))
 	if strings.Contains(accept, "application/json") {
 		return "json"
