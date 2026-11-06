@@ -14,6 +14,10 @@ A sample service implemented in Go and distributed as a public container image. 
 
 Set the `COLOR` environment variable to a valid CSS color to change the background color.
 
+Set `ACK_EVENTS=false` to return HTTP 503 instead of successful POST statuses
+without changing event logging or response bodies. The hello image defaults to
+`ACK_EVENTS=true`. Invalid or empty values cause startup to fail.
+
 ### Response Formats
 
 By default, the service returns answers in HTML format. You can also request responses in JSON or plain text format by passing a URL query parameter or an HTTP header:
@@ -33,3 +37,9 @@ A sample job implemented in Go and distributed as a public container image. It i
 A sample service implemented in Go and distributed as a public container image. It is used to create a placeholder revision when setting up [Continuous Deployment](https://cloud.google.com/run/docs/continuous-deployment-with-cloud-build).
 
 * **Container Image:** `us-docker.pkg.dev/cloudrun/container/placeholder`
+
+The placeholder defaults to `ACK_EVENTS=false`, replacing POST acknowledgment
+statuses (2xx and 102) with HTTP 503 so Pub/Sub and Eventarc deliveries are not
+acknowledged. Handlers and GET/HEAD responses remain unchanged. Set `ACK_EVENTS=true`
+to restore the previous behavior. Retries remain subject to the event source's
+retry policy and retention limits.
