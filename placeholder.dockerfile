@@ -22,6 +22,8 @@ RUN apk add --no-cache ca-certificates
 # Build the runtime container image from scratch, copying what is needed from the two previous stages.  
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
 FROM scratch
+# Reject event deliveries until the application is deployed.
+ENV ACK_EVENTS=false
 # Create and change to the workspace directory.
 WORKDIR /workspace
 # Copy the binary to the production image from the builder stage.

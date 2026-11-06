@@ -25,6 +25,7 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 
 	cloudevents "github.com/cloudevents/sdk-go/v2"
@@ -125,7 +126,60 @@ func determineFormat(r *http.Request) string {
 	return "html"
 }
 
+func eventAcknowledgmentEnabled() (bool, error) {
+	value, set := os.LookupEnv("ACK_EVENTS")
+	if !set {
+		return true, nil
+	}
+	enabled, err := strconv.ParseBool(value)
+	if err != nil {
+		return false, fmt.Errorf("invalid ACK_EVENTS value %q: %w", value, err)
+	}
+	return enabled, nil
+}
+
+type eventResponseWriter struct {
+	http.ResponseWriter
+	wroteHeader bool
+}
+
+func (w *eventResponseWriter) WriteHeader(status int) {
+	if w.wroteHeader {
+		return
+	}
+	// Pub/Sub also treats 102 Processing as an acknowledgment.
+	if status == http.StatusProcessing || status >= 200 && status < 300 {
+		log.Print("Returning HTTP 503 for POST request: ACK_EVENTS=false")
+		status = http.StatusServiceUnavailable
+	}
+	if status >= 200 {
+		w.wroteHeader = true
+	}
+	w.ResponseWriter.WriteHeader(status)
+}
+
+func (w *eventResponseWriter) Write(body []byte) (int, error) {
+	w.WriteHeader(http.StatusOK)
+	return w.ResponseWriter.Write(body)
+}
+
+func withEventAcknowledgment(handler http.Handler, enabled bool) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if enabled || r.Method != http.MethodPost {
+			handler.ServeHTTP(w, r)
+			return
+		}
+		response := &eventResponseWriter{ResponseWriter: w}
+		handler.ServeHTTP(response, r)
+		response.WriteHeader(http.StatusOK)
+	})
+}
+
 func main() {
+	acknowledgeEvents, err := eventAcknowledgmentEnabled()
+	if err != nil {
+		log.Fatal(err)
+	}
 	tmpl := template.Must(template.ParseFiles("./index.html"))
 
 	// Get project ID from metadata server
@@ -232,5 +286,5 @@ func main() {
 	address := fmt.Sprintf(":%s", port)
 
 	log.Printf("Hello from Cloud Run! The container started successfully and is listening for HTTP requests on port %s", port)
-	log.Fatal(http.ListenAndServe(address, nil))
+	log.Fatal(http.ListenAndServe(address, withEventAcknowledgment(http.DefaultServeMux, acknowledgeEvents)))
 }
